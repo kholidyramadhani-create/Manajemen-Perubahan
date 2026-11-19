@@ -1,0 +1,2913 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Latihan Soal Manajemen Perubahan</title>
+    <style>
+        /* ===== RESET & VARIABEL ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #f5f7fc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #475569;
+            --border: #e2e8f0;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: #dbeafe;
+            --success: #16a34a;
+            --success-light: #dcfce7;
+            --danger: #dc2626;
+            --danger-light: #fee2e2;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --gray: #94a3b8;
+            --gray-light: #f1f5f9;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.25s ease;
+        }
+
+        .dark {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --text: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border: #334155;
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --primary-light: #1e293b;
+            --success: #22c55e;
+            --success-light: #14532d;
+            --danger: #ef4444;
+            --danger-light: #7f1d1d;
+            --warning: #f59e0b;
+            --warning-light: #713f12;
+            --gray: #64748b;
+            --gray-light: #1e293b;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: background var(--transition), color var(--transition);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        #app {
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px 28px;
+            margin-bottom: 20px;
+            transition: background var(--transition), box-shadow var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background var(--transition), transform 0.15s, box-shadow var(--transition);
+            background: var(--gray-light);
+            color: var(--text);
+            text-decoration: none;
+        }
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #15803d;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--border);
+            color: var(--text);
+        }
+        .btn-outline:hover {
+            background: var(--gray-light);
+        }
+
+        .btn-sm {
+            padding: 4px 12px;
+            font-size: 0.8rem;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+
+        .header-top h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .header-top h1 small {
+            font-weight: 400;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-left: 8px;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .header-stats span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .header-stats .badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+        .badge-success {
+            background: var(--success-light);
+            color: var(--success);
+        }
+        .badge-danger {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+        .badge-warning {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+        .badge-gray {
+            background: var(--gray-light);
+            color: var(--text-secondary);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--gray-light);
+            border-radius: 99px;
+            overflow: hidden;
+            margin: 12px 0 4px;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 99px;
+            transition: width 0.4s ease;
+        }
+
+        .question-number {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 2px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--gray-light);
+            border-radius: var(--radius-sm);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: background var(--transition), border-color var(--transition), transform 0.15s;
+            font-size: 0.95rem;
+        }
+        .option:hover:not(.disabled) {
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+        .option .letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            transition: background var(--transition), border-color var(--transition);
+        }
+        .option .text {
+            flex: 1;
+        }
+
+        .option.correct {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+        .option.correct .letter {
+            background: var(--success);
+            border-color: var(--success);
+            color: #fff;
+        }
+
+        .option.wrong {
+            border-color: var(--danger);
+            background: var(--danger-light);
+        }
+        .option.wrong .letter {
+            background: var(--danger);
+            border-color: var(--danger);
+            color: #fff;
+        }
+
+        .option.disabled {
+            cursor: default;
+        }
+        .option.disabled:hover {
+            border-color: transparent;
+            transform: none;
+        }
+
+        .option.selected {
+            border-color: var(--primary);
+        }
+
+        .feedback {
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            margin: 12px 0 18px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            display: none;
+        }
+        .feedback.show {
+            display: block;
+        }
+        .feedback.correct {
+            background: var(--success-light);
+            border-left: 4px solid var(--success);
+            color: var(--success);
+        }
+        .feedback.wrong {
+            background: var(--danger-light);
+            border-left: 4px solid var(--danger);
+            color: var(--danger);
+        }
+        .feedback .answer-reveal {
+            font-weight: 600;
+        }
+        .feedback .explanation {
+            margin-top: 6px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            color: var(--text-secondary);
+        }
+
+        .question-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 12px 0 8px;
+        }
+        .question-nav .qn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: var(--gray-light);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: background var(--transition), transform 0.15s;
+            border: 1.5px solid transparent;
+        }
+        .question-nav .qn:hover {
+            transform: scale(1.05);
+        }
+        .question-nav .qn.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        .question-nav .qn.answered-correct {
+            background: var(--success);
+            color: #fff;
+        }
+        .question-nav .qn.answered-wrong {
+            background: var(--danger);
+            color: #fff;
+        }
+        .question-nav .qn.current {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .setup-grid label {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        .setup-grid select,
+        .setup-grid input {
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 0.9rem;
+            transition: border var(--transition);
+        }
+        .setup-grid select:focus,
+        .setup-grid input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .setup-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .mode-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 12px 0 16px;
+        }
+        .mode-tabs .btn {
+            flex: 1;
+            min-width: 100px;
+            justify-content: center;
+        }
+        .mode-tabs .btn.active-mode {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .review-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .review-item:last-child {
+            border-bottom: none;
+        }
+        .review-item .r-num {
+            font-weight: 700;
+            min-width: 40px;
+            font-size: 0.9rem;
+        }
+        .review-item .r-q {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+        .review-item .r-answer {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .review-item .r-answer.correct {
+            color: var(--success);
+        }
+        .review-item .r-answer.wrong {
+            color: var(--danger);
+        }
+
+        .review-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        /* ===== QRIS STYLING ===== */
+        .qris-section {
+            margin-top: 24px;
+            padding: 24px 20px 20px;
+            border-radius: var(--radius);
+            background: linear-gradient(145deg, var(--surface), var(--gray-light));
+            border: 2px solid var(--border);
+            text-align: center;
+            transition: border-color var(--transition);
+        }
+        .qris-section:hover {
+            border-color: var(--primary);
+        }
+
+        .qris-section .qris-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .qris-section .qris-title .icon {
+            font-size: 1.3rem;
+        }
+
+        .qris-section .qris-image-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            padding: 8px;
+            background: #fff;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            max-width: 220px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .qris-section .qris-image-wrapper:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .qris-section .qris-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 200px;
+            border-radius: calc(var(--radius-sm) - 2px);
+            background: #fff;
+        }
+
+        .qris-section .qris-divider {
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 99px;
+            margin: 10px auto 12px;
+            opacity: 0.4;
+        }
+
+        .qris-section .qris-caption {
+            margin-top: 6px;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+        .qris-section .qris-caption .highlight {
+            background: var(--primary-light);
+            padding: 2px 12px;
+            border-radius: 20px;
+        }
+        .qris-section .qris-sub {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 640px) {
+            .qris-section {
+                padding: 18px 14px 16px;
+                margin-top: 18px;
+            }
+            .qris-section .qris-image-wrapper {
+                max-width: 160px;
+            }
+            .qris-section .qris-image {
+                max-width: 140px;
+            }
+            .qris-section .qris-caption {
+                font-size: 1.05rem;
+            }
+            .qris-section .qris-title {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .qris-section .qris-image-wrapper {
+                max-width: 130px;
+                padding: 6px;
+            }
+            .qris-section .qris-image {
+                max-width: 110px;
+            }
+            .qris-section .qris-caption {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* ===== RESPONSIF ===== */
+        @media (max-width: 640px) {
+            body {
+                padding: 12px;
+            }
+            .card {
+                padding: 16px;
+            }
+            .header-top h1 {
+                font-size: 1.2rem;
+            }
+            .header-stats {
+                font-size: 0.8rem;
+                gap: 10px;
+            }
+            .question-text {
+                font-size: 0.95rem;
+            }
+            .option {
+                font-size: 0.9rem;
+                padding: 10px 14px;
+            }
+            .setup-grid {
+                grid-template-columns: 1fr;
+            }
+            .mode-tabs .btn {
+                min-width: 60px;
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            .question-nav .qn {
+                width: 32px;
+                height: 32px;
+                font-size: 0.7rem;
+            }
+        }
+
+        /* ===== UTILITY ===== */
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .mt-12 {
+            margin-top: 12px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+        .gap-8 {
+            gap: 8px;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .text-center {
+            text-align: center;
+        }
+
+        .result-score {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .result-detail {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .scroll-x {
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .theme-toggle:hover {
+            background: var(--gray-light);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <!-- ===== HEADER ===== -->
+        <div class="card">
+            <div class="header-top">
+                <h1>📘 Manajemen Perubahan <small>120 Soal</small></h1>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <span class="header-stats">
+                        <span id="progressText">0/0</span>
+                        <span>|</span>
+                        <span>✅ <span id="correctCount">0</span></span>
+                        <span>❌ <span id="wrongCount">0</span></span>
+                        <span>🎯 <span id="scorePercent">0%</span></span>
+                    </span>
+                    <button class="theme-toggle" id="themeToggle" title="Mode Gelap">🌙</button>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="fill" id="progressFill" style="width:0%"></div>
+            </div>
+        </div>
+
+        <!-- ===== SETUP ===== -->
+        <div class="card" id="setupPanel">
+            <div class="card-header">
+                <span class="card-title">⚙️ Pengaturan Latihan</span>
+                <span style="font-size:0.85rem;color:var(--text-secondary);">Total soal: <strong id="totalSoalDisplay">120</strong></span>
+            </div>
+
+            <div class="mode-tabs" id="modeTabs">
+                <button class="btn active-mode" data-mode="all">📚 Semua Soal</button>
+                <button class="btn" data-mode="count">🔢 Pilih Jumlah</button>
+                <button class="btn" data-mode="range">📏 Rentang</button>
+                <button class="btn" data-mode="pick">☑️ Pilih Tertentu</button>
+                <button class="btn" data-mode="random">🎲 Acak</button>
+            </div>
+
+            <div id="modeOptions"></div>
+
+            <div class="setup-actions">
+                <button class="btn btn-primary" id="startBtn">🚀 Mulai Latihan</button>
+                <button class="btn btn-outline" id="resetBtn">🔄 Mulai Ulang</button>
+            </div>
+
+            <div style="margin-top:12px;font-size:0.85rem;color:var(--text-secondary);">
+                💡 Pilih mode lalu klik "Mulai Latihan"
+            </div>
+            <div style="margin-top:8px;">
+                <label style="display:flex;align-items:center;gap:8px;font-size:0.9rem;cursor:pointer;">
+                    <input type="checkbox" id="examModeCheck">
+                    🎯 Mode Ujian (hasil & pembahasan di akhir)
+                </label>
+            </div>
+
+            <!-- ===== QRIS SECTION ===== -->
+            <div class="qris-section">
+                <div class="qris-title">
+                    <span class="icon">💳</span> Dukung Perjalanan Ibadah
+                </div>
+                <div class="qris-image-wrapper">
+                    <img src="IMG_2166.PNG" alt="QRIS Gasan Naik Haji" class="qris-image" />
+                </div>
+                <div class="qris-divider"></div>
+                <div class="qris-caption">
+                    <span class="highlight">Gasan Naik Haji</span>
+                </div>
+                <div class="qris-sub">🔹 Scan QRIS untuk berdonasi 🔹</div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL SOAL ===== -->
+        <div class="card hidden" id="questionPanel">
+            <div class="flex-between mb-8">
+                <div>
+                    <span class="question-number" id="qNumDisplay">Soal 1</span>
+                    <span style="margin-left:8px;font-size:0.85rem;color:var(--text-secondary);" id="qIndexDisplay">1 / 120</span>
+                </div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                    <button class="btn btn-sm btn-outline" id="prevBtn">◀ Sebelum</button>
+                    <button class="btn btn-sm btn-outline" id="nextBtn">Berikut ▶</button>
+                </div>
+            </div>
+
+            <div class="question-text" id="questionText">Loading...</div>
+
+            <div class="options" id="optionsContainer"></div>
+
+            <div class="feedback" id="feedback">
+                <div class="answer-reveal" id="feedbackAnswer"></div>
+                <div class="explanation" id="feedbackExplanation"></div>
+            </div>
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;">
+                <button class="btn btn-success" id="nextQuestionBtn" disabled>➡️ Soal Berikutnya</button>
+                <button class="btn btn-outline" id="reviewToggleBtn">📋 Review</button>
+                <button class="btn btn-outline" id="restartFromQuestionBtn" style="color:var(--danger);border-color:var(--danger);">🔄 Mulai Ulang Latihan</button>
+            </div>
+
+            <div class="scroll-x mt-12">
+                <div class="question-nav" id="questionNav"></div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL REVIEW ===== -->
+        <div class="card hidden" id="reviewPanel">
+            <div class="card-header">
+                <span class="card-title">📋 Review Jawaban</span>
+                <button class="btn btn-sm btn-outline" id="closeReviewBtn">✕ Tutup</button>
+            </div>
+            <div class="review-filter">
+                <button class="btn btn-sm btn-outline active-review-filter" data-filter="all">Semua</button>
+                <button class="btn btn-sm btn-outline" data-filter="correct">✅ Benar</button>
+                <button class="btn btn-sm btn-outline" data-filter="wrong">❌ Salah</button>
+                <button class="btn btn-sm btn-outline" data-filter="unanswered">⬜ Belum</button>
+            </div>
+            <div id="reviewList"></div>
+        </div>
+
+        <!-- ===== PANEL HASIL ===== -->
+        <div class="card hidden" id="resultPanel">
+            <div class="text-center">
+                <div style="font-size:3rem;margin-bottom:8px;">🏆</div>
+                <div class="result-score" id="finalScore">0%</div>
+                <div class="result-detail">
+                    ✅ Benar: <span id="finalCorrect">0</span> &nbsp;|&nbsp; ❌ Salah: <span id="finalWrong">0</span>
+                </div>
+                <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+                    <button class="btn btn-primary" id="retryWrongBtn">🔁 Kerjakan Ulang Soal Salah</button>
+                    <button class="btn btn-outline" id="resultResetBtn">🔄 Mulai Ulang</button>
+                </div>
+                <div style="margin-top:20px;">
+                    <button class="btn btn-outline" id="resultReviewBtn">📋 Lihat Review</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        //  1. DATA SOAL (120 SOAL) – MANAJEMEN PERUBAHAN
+        // ============================================================
+        const MASTER_QUESTIONS = [
+    {
+        "id": 1,
+        "question": "Hal yang menjadi tuntutan utama terhadap organisasi publik dalam memberikan pelayanan kepada masyarakat yaitu....",
+        "options": [
+            "A. keadilan keterbukaan dan transparansi",
+            "B. efisiensi operasional",
+            "C. keuntungan finansial",
+            "D. peningkatan pangsa pasar"
+        ],
+        "correct": 0,
+        "explanation": "Keadilan, keterbukaan, dan transparansi merupakan tuntutan utama dalam pelayanan publik."
+    },
+    {
+        "id": 2,
+        "question": "Tujuan utama organisasi sektor swasta yaitu:",
+        "options": [
+            "A. menyediakan layanan publik",
+            "B. memaksimalkan keuntungan",
+            "C. memastikan kesejahteraan sosial",
+            "D. menjaga stabilitas politik"
+        ],
+        "correct": 1,
+        "explanation": "Tujuan utama sektor swasta (organisasi profit) adalah memaksimalkan keuntungan atau laba."
+    },
+    {
+        "id": 3,
+        "question": "Perbedaan utama antara organisasi publik dan organisasi bisnis (privat) menurut Ika Ruhana yaitu",
+        "options": [
+            "A. karakteristik keuangan",
+            "B. tujuan didirikan",
+            "C. sifat pelayanan",
+            "D. struktur manajemen"
+        ],
+        "correct": 1,
+        "explanation": "Perbedaan utama terletak pada tujuan didirikan (pelayanan publik vs memaksimalkan profit)."
+    },
+    {
+        "id": 4,
+        "question": "Perbedaan utama antara karakteristik organisasi publik di Swedia dan Indonesia adalah",
+        "options": [
+            "A. tata tertib keselamatan berkendara",
+            "B. pegawai dikerahkan sampai malam",
+            "C. perubahan rambu jalan",
+            "D. pelayanan publik bagi warga masyarakat"
+        ],
+        "correct": 3,
+        "explanation": "Perbedaan terletak pada mekanisme dan standar pelayanan publik bagi warga masyarakat."
+    },
+    {
+        "id": 5,
+        "question": "Kriteria yang menjadi contoh ilustrasi bagaimana organisasi publik bekerja sebagai sektor pelayanan adalah....",
+        "options": [
+            "A. pelayanan perizinan di Surabaya transparan dan tanpa pungutan",
+            "B. pengembangan produk baru",
+            "C. pemasaran agresif",
+            "D. pengurangan biaya produksi"
+        ],
+        "correct": 0,
+        "explanation": "Pelayanan perizinan yang transparan dan tanpa pungutan merupakan contoh nyata pelayanan sektor publik."
+    },
+    {
+        "id": 6,
+        "question": "Berikut ini yang merupakan perbedaan utama antara organisasi sektor publik dan swasta dalam hal struktur yaitu organisasi ....",
+        "options": [
+            "A. publik lebih fleksibel",
+            "B. swasta lebih hierarkis",
+            "C. publik lebih birokratis dan kaku",
+            "D. swasta memiliki lebih banyak tingkatan manajemen"
+        ],
+        "correct": 2,
+        "explanation": "Organisasi sektor publik memiliki struktur yang cenderung lebih birokratis dan kaku dibanding swasta."
+    },
+    {
+        "id": 7,
+        "question": "Dibawah ini adalah contoh bentuk dari organisasi profit yaitu ....",
+        "options": [
+            "A. Puskesmas",
+            "B. Organisasi Masyarakat",
+            "C. Perseroan Terbatas",
+            "D. Panti Asuhan"
+        ],
+        "correct": 2,
+        "explanation": "Perseroan Terbatas (PT) merupakan contoh badan usaha/organisasi berorientasi profit."
+    },
+    {
+        "id": 8,
+        "question": "Karakteristik utama dari layanan yang disediakan oleh organisasi sektor publik yaitu...",
+        "options": [
+            "A. selalu gratis",
+            "B. hanya tersedia untuk pembayar pajak",
+            "C. ditujukan untuk memberi manfaat bagi masyarakat secara keseluruhan",
+            "D. selalu lebih efisien daripada layanan sektor swasta"
+        ],
+        "correct": 2,
+        "explanation": "Layanan publik ditujukan untuk memberikan manfaat umum bagi seluruh lapisan masyarakat."
+    },
+    {
+        "id": 9,
+        "question": "Sektor organisasi profit memiliki karakteristik yaitu...",
+        "options": [
+            "A. mencari pendanaan masyarakat",
+            "B. mencari keuntungan",
+            "C. mencari dukungan publik",
+            "D. mencari dukungan internasional"
+        ],
+        "correct": 1,
+        "explanation": "Karakteristik utama organisasi profit adalah berorientasi pada perolehan keuntungan."
+    },
+    {
+        "id": 10,
+        "question": "Sumber pendanaan organisasi privat berasal dari...",
+        "options": [
+            "A. dana investor",
+            "B. zakat dan infaq",
+            "C. anggaran pemerintah (APBN)",
+            "D. dana abadi pemerintah"
+        ],
+        "correct": 0,
+        "explanation": "Sumber pendanaan utama organisasi privat/swasta berasal dari modal investor atau pemilik."
+    },
+    {
+        "id": 11,
+        "question": "Berikut ini yang merupakan karakteristik organisasi sektor swasta/privat yaitu....",
+        "options": [
+            "A. mereka menerima fasilitas yang luas dari negara",
+            "B. otoritas tertinggi mereka biasanya adalah dewan direksi atau rapat pemegang saham",
+            "C. mereka terutama didanai melalui pajak",
+            "D. mereka fokus pada penyediaan layanan gratis kepada semua warga negara"
+        ],
+        "correct": 1,
+        "explanation": "Otoritas tertinggi pada organisasi swasta berada pada Dewan Direksi atau Rapat Umum Pemegang Saham (RUPS)."
+    },
+    {
+        "id": 12,
+        "question": "Fungsi dari organisasi publik ketika terjadi kegagalan pasar yaitu....",
+        "options": [
+            "A. menjadi agen pelayan masyarakat",
+            "B. menghentikan operasionalnya",
+            "C. menghasilkan keuntungan finansial",
+            "D. mengubah fokus menjadi sektor swasta"
+        ],
+        "correct": 0,
+        "explanation": "Ketika pasar gagal (market failure), organisasi publik hadir sebagai pelayan masyarakat untuk menjaga stabilitas dan kebutuhan umum."
+    },
+    {
+        "id": 13,
+        "question": "Berikut adalah beberapa fungsi dari manajemen yaitu ....",
+        "options": [
+            "A. budgeting, acting, assessment, collaborating",
+            "B. investing, evaluating, organizing, controlling",
+            "C. planning, organizing, actuating, controlling",
+            "D. strategic partner, networking, budgeting"
+        ],
+        "correct": 2,
+        "explanation": "Fungsi dasar manajemen klasik (POAC): Planning, Organizing, Actuating, dan Controlling."
+    },
+    {
+        "id": 14,
+        "question": "Teori X dalam manajemen mengasumsikan bahwa...",
+        "options": [
+            "A. pekerja menikmati pekerjaan mereka",
+            "B. pekerja mampu mengendalikan diri sendiri",
+            "C. pekerja selalu malas dan perlu dikendalikan",
+            "D. pekerja kreatif dan inovatif"
+        ],
+        "correct": 2,
+        "explanation": "Teori X mengasumsikan bahwa karyawan cenderung malas, tidak menyukai pekerjaan, dan perlu pengawasan ketat."
+    },
+    {
+        "id": 15,
+        "question": "Teori manajemen mengenai empat prinsip manajemen ilmiah dikemukakan oleh...",
+        "options": [
+            "A. Henry Fayol",
+            "B. Frederick W. Taylor",
+            "C. Max Weber",
+            "D. Abraham Maslow"
+        ],
+        "correct": 1,
+        "explanation": "Frederick W. Taylor dikenal sebagai Bapak Manajemen Ilmiah (Scientific Management)."
+    },
+    {
+        "id": 16,
+        "question": "Konsep dari perubahan organisasi yaitu....",
+        "options": [
+            "A. perbaikan yang dilakukan dikarenakan adanya perencanaan dari sisi manajerial saja",
+            "B. pergantian dari posisi lama kepada baru",
+            "C. pergantian tata kelola dan pimpinan organisasi",
+            "D. perpindahan dari keadaan sekarang menuju keadaan masa depan atau umumnya merupakan respon terhadap beberapa ancaman atau peluang signifikan yang muncul di luar organisasi"
+        ],
+        "correct": 3,
+        "explanation": "Perubahan organisasi adalah proses pergeseran dari kondisi saat ini menuju kondisi masa depan untuk merespons ancaman atau peluang."
+    },
+    {
+        "id": 17,
+        "question": "Contoh perubahan organisasi yang disebabkan oleh faktor teknologi adalah....",
+        "options": [
+            "A. pergeseran dari era kertas menjadi era digital",
+            "B. perubahan peraturan ketenagakerjaan",
+            "C. fluktuasi nilai tukar mata uang",
+            "D. perubahan struktur organisasi internal"
+        ],
+        "correct": 0,
+        "explanation": "Pergeseran ke era digital (paperless) merupakan contoh langsung perubahan yang didorong perkembangan teknologi."
+    },
+    {
+        "id": 18,
+        "question": "Di bawah ini merupakan fungsi dari perubahan, yaitu ....",
+        "options": [
+            "A. membuat usaha menjadi lebih lambat",
+            "B. pergantian dari posisi lama ke baru",
+            "C. pergantian tata kelola dan pimpinan organisasi",
+            "D. memperbaiki keadaan ke tahap lebih baik dan baru sesuai dengan tujuan organisasi"
+        ],
+        "correct": 3,
+        "explanation": "Fungsi utama perubahan adalah memperbaiki keadaan menuju tingkat yang lebih baik dan sesuai tujuan organisasi."
+    },
+    {
+        "id": 19,
+        "question": "Faktor internal yang dapat memicu tantangan perubahan organisasi adalah....",
+        "options": [
+            "A. perubahan kebijakan pemerintah",
+            "B. fluktuasi nilai tukar mata uang",
+            "C. pergantian kepala eksekutif atau staf jajaran manajer level tertinggi",
+            "D. perubahan selera konsumen global"
+        ],
+        "correct": 2,
+        "explanation": "Pergantian pimpinan eksekutif atau manajerial merupakan faktor internal organisasi."
+    },
+    {
+        "id": 20,
+        "question": "Salah satu hambatan dalam melakukan perubahan yaitu....",
+        "options": [
+            "A. kemampuan untuk belajar",
+            "B. meningkatkan kompetensi",
+            "C. keinginan untuk memperbaiki diri",
+            "D. rasa nyaman pada status quo"
+        ],
+        "correct": 3,
+        "explanation": "Rasa nyaman pada zona nyaman (status quo) menjadi penghambat terbesar bagi perubahan."
+    },
+    {
+        "id": 21,
+        "question": "Salah satu karakteristik kesuksesan penerapan manajemen perubahan adalah ....",
+        "options": [
+            "A. budaya kultur yang terlalu kaku",
+            "B. meningkatkan kemudahan akses pendanaan",
+            "C. keinginan untuk memperbaiki diri",
+            "D. terciptanya inovasi dan digitalisasi perusahaan"
+        ],
+        "correct": 3,
+        "explanation": "Keberhasilan manajemen perubahan ditandai dengan munculnya inovasi dan modernisasi digital perusahaan."
+    },
+    {
+        "id": 22,
+        "question": "Manakah yang termasuk elemen hierarki Maslow yaitu....",
+        "options": [
+            "A. kebutuhan akan kenyamanan",
+            "B. kebutuhan akan keamanan",
+            "C. kebutuhan akan perubahan",
+            "D. kebutuhan akan pekerjaan"
+        ],
+        "correct": 1,
+        "explanation": "Kebutuhan akan keamanan (safety needs) adalah salah satu tingkatan dalam Hierarki Maslow."
+    },
+    {
+        "id": 23,
+        "question": "Yang dimaksud dengan perilaku organisasi adalah...",
+        "options": [
+            "A. proses dalam mengelola dan merencanakan strategi jangka panjang perusahaan",
+            "B. ilmu dalam memahami perilaku dan pengelolaaan sumber daya manusia di perusahaan",
+            "C. ilmu untuk memahami kebutuhan akan perubahan",
+            "D. ilmu untuk memahami kebutuhan akan pekerjaan"
+        ],
+        "correct": 1,
+        "explanation": "Perilaku organisasi mempelajari dinamika dan pengelolaan perilaku individu/kelompok dalam organisasi."
+    },
+    {
+        "id": 24,
+        "question": "Di bawah ini yang termasuk elemen hierarki Maslow adalah...",
+        "options": [
+            "A. kebutuhan akan kenyamanan",
+            "B. kebutuhan akan keamanan",
+            "C. kebutuhan akan perubahan",
+            "D. kebutuhan akan pekerjaan"
+        ],
+        "correct": 1,
+        "explanation": "Kebutuhan akan keamanan merupakan bagian dari 5 tingkatan Hirarki Maslow."
+    },
+    {
+        "id": 25,
+        "question": "Dibawah ini yang dimaksud dengan 'empowerment' dalam konteks pengembangan organisasi yaitu....",
+        "options": [
+            "A. proses pemberian kekuasaan kepada karyawan untuk memperkuat kepercayaan diri",
+            "B. strategi untuk meningkatkan gaji karyawan",
+            "C. metode untuk mengurangi beban kerja karyawan",
+            "D. teknik untuk meningkatkan pengawasan terhadap karyawan"
+        ],
+        "correct": 0,
+        "explanation": "Empowerment (pemberdayaan) memberi wewenang dan kepercayaan kepada karyawan untuk mengambil keputusan."
+    },
+    {
+        "id": 26,
+        "question": "Konsep dari pengembangan organisasi yaitu...",
+        "options": [
+            "A. ekspansi organisasi ke lokasi lainnya",
+            "B. perencanaan organisasi untuk melakukan perubahan",
+            "C. penjelasan tentang produk baru pada organisasi",
+            "D. proses yang terencana, manajemen dan secara sistematis untuk merubah kultur, sistem dan perilaku organisasi untuk meningkatkan efektivitas organisasi"
+        ],
+        "correct": 3,
+        "explanation": "Pengembangan organisasi (Organization Development) adalah upaya terencana untuk merubah budaya, sistem, dan perilaku demi peningkatan efektivitas."
+    },
+    {
+        "id": 27,
+        "question": "Faktor utama dalam pengembangan organisasi yaitu ....",
+        "options": [
+            "A. kemandirian usaha",
+            "B. kesiapan organisasi untuk melakukan perubahan",
+            "C. produk baru pada organisasi",
+            "D. proses yang terencana, manajemen dan secara sistematis untuk melakukan perubahan"
+        ],
+        "correct": 1,
+        "explanation": "Kesiapan organisasi (readiness for change) adalah faktor paling krusial untuk memulai pengembangan."
+    },
+    {
+        "id": 28,
+        "question": "Learning organization merupakan suatu",
+        "options": [
+            "A. individu berusaha melakukan pelatihan",
+            "B. individu di organisasi sedang melanjutkan studi",
+            "C. proses yang secara sistematik mempercepat kegiatan pembelajaran dalam sistem organisasi secara keseluruhan dibanding dengan proses pembelajaran individu dalam sistem",
+            "D. organisasi melakukan pembelajaran dari masalah masa lalu"
+        ],
+        "correct": 2,
+        "explanation": "Learning Organization mempercepat pembelajaran kolaboratif secara sistemik di seluruh organisasi."
+    },
+    {
+        "id": 29,
+        "question": "Di bawah ini adalah ciri-ciri indikator learning organization yaitu",
+        "options": [
+            "A. individu competency",
+            "B. public thinking",
+            "C. mental models",
+            "D. public perception"
+        ],
+        "correct": 2,
+        "explanation": "Mental models merupakan salah satu dari 5 pilar (disciplines) Learning Organization menurut Peter Senge."
+    },
+    {
+        "id": 30,
+        "question": "Di bawah ini yang dimaksud dengan sikap 'open minded' dalam konteks mengatasi hambatan learning organization yaitu....",
+        "options": [
+            "A. sikap mau mendengar, mau berbagi, dan tidak memonopoli kebenaran",
+            "B. sikap selalu menerima ide baru tanpa pertimbangan",
+            "C. sikap mengutamakan kepentingan pribadi di atas kepentingan organisasi",
+            "D. sikap menolak semua bentuk perubahan dalam organisasi"
+        ],
+        "correct": 0,
+        "explanation": "Sikap pemikiran terbuka (open minded) ditandai dengan kesediaan mendengar, berbagi, dan mendiskusikan kebenaran."
+    },
+    {
+        "id": 31,
+        "question": "Berikut ini merupakan lingkungan internal organisasi ....",
+        "options": [
+            "A. pemerintah",
+            "B. kondisi politik",
+            "C. karyawan dan manajemen",
+            "D. perubahan demografis Indonesia"
+        ],
+        "correct": 2,
+        "explanation": "Karyawan dan jajaran manajemen berada di dalam lingkup internal organisasi."
+    },
+    {
+        "id": 32,
+        "question": "Dibawah ini yang dimaksud dengan lingkungan mikro menurut Cook dan Macaulay (2004) yaitu...",
+        "options": [
+            "A. lingkungan yang lebih jauh dari inti organisasi",
+            "B. lingkungan yang lebih dekat pada inti organisasi dan memengaruhi perubahan",
+            "C. lingkungan politik dan ekonomi makro",
+            "D. lingkungan internal organisasi"
+        ],
+        "correct": 1,
+        "explanation": "Lingkungan mikro berada lebih dekat dengan inti organisasi dan langsung mempengaruhi perubahan."
+    },
+    {
+        "id": 33,
+        "question": "Di bawah ini yang dimaksud dengan lingkungan organisasi yaitu....",
+        "options": [
+            "A. kegiatan proses jual beli di dalam organisasi",
+            "B. faktor yang tidak membuat organisasi berkembang",
+            "C. faktor yang mendorong organisasi menjadi berkembang",
+            "D. faktor-faktor di luar organisasi yang memengaruhi berjalannya sebuah organisasi"
+        ],
+        "correct": 3,
+        "explanation": "Lingkungan organisasi mencakup segenap elemen dan faktor luar yang memengaruhi operasional organisasi."
+    },
+    {
+        "id": 34,
+        "question": "Perubahan organisasi membutuhkan gaya kepemimpinan yang dapat memastikan bahwa pekerjaan berjalan sesuai dengan rencana, gaya kepemimpinan yang cocok dengan kondisi tersebut adalah",
+        "options": [
+            "A. otoriter",
+            "B. transaksional",
+            "C. adaptif dan visioner",
+            "D. transformasional"
+        ],
+        "correct": 1,
+        "explanation": "Kepemimpinan transaksional berfokus pada kepatuhan, pengawasan, dan kesesuaian target dengan rencana."
+    },
+    {
+        "id": 35,
+        "question": "Dibawah ini tantangan utama dalam mengelola reputasi organisasi di era digital yaitu....",
+        "options": [
+            "A. menyembunyikan informasi negatif dari publik",
+            "B. menghindari penggunaan media sosial",
+            "C. mengelola transparansi dan integritas dalam dunia yang terhubung secara digital",
+            "D. membatasi komunikasi dengan pemangku kepentingan eksternal"
+        ],
+        "correct": 2,
+        "explanation": "Transparansi dan keterbukaan informasi di era serba digital menjadi tantangan utama pengelolaan reputasi."
+    },
+    {
+        "id": 36,
+        "question": "Para pimpinan perusahaan Nokia pada saat itu tidak merasa membuat kesalahan dalam menjaga bisnisnya, namun akhirnya gagal. Penyebab kegagalan Nokia dalam bersaing adalah",
+        "options": [
+            "A. tidak ada rasa empati",
+            "B. tidak ada keadilan di dalam perusahaan",
+            "C. tidak melakukan inovasi dan kolaborasi",
+            "D. pimpinan kurang suportif"
+        ],
+        "correct": 2,
+        "explanation": "Lambatnya inovasi dan kolaborasi sistem operasi modern menjadi sebab jatuhnya Nokia."
+    },
+    {
+        "id": 37,
+        "question": "Tren kepemimpinan saat ini adalah ....",
+        "options": [
+            "A. memberikan imbalan, berjejaring dan memberikan contoh",
+            "B. pemimpin yang memberikan contoh, memotivasi dan menjadi role model",
+            "C. memberikan contoh, berkomunikasi dan tidak peduli",
+            "D. tidak memberikan contoh, tidak memberikan imbalan dan tidak memberikan contoh"
+        ],
+        "correct": 1,
+        "explanation": "Pemimpin modern bertindak sebagai teladan (role model), motivator, dan penggerak tim."
+    },
+    {
+        "id": 38,
+        "question": "Gaya kepemimpinan transformasional yang paling tepat dapat dilihat dari perilaku pemimpin yang dicirikan dengan memberikan ....",
+        "options": [
+            "A. imbalan, berjejaring dan contoh",
+            "B. motivasi, contoh, dan menjadi role model",
+            "C. contoh, berkomunikasi dan tidak peduli",
+            "D. tanggungjawab penuh kepada bawahan, dan kurang peduli"
+        ],
+        "correct": 1,
+        "explanation": "Kepemimpinan transformasional menginspirasi bawahan melalui contoh, motivasi, dan keteladanan."
+    },
+    {
+        "id": 39,
+        "question": "Di bawah ini yang menjadi tantangan dalam mengelola keragaman tenaga kerja di era perubahan demografi yaitu....",
+        "options": [
+            "A. menghindari rekrutmen tenaga kerja dari berbagai latar belakang",
+            "B. mempertahankan struktur organisasi yang homogen",
+            "C. mengembangkan kepekaan terhadap kebutuhan dan kemampuan karyawan yang beragam",
+            "D. mengurangi variasi usia dalam tenaga kerja"
+        ],
+        "correct": 2,
+        "explanation": "Pengelolaan keberagaman (diversity) menuntut sensitivitas terhadap kebutuhan tiap generasi dan latar belakang."
+    },
+    {
+        "id": 40,
+        "question": "Konsep dari lingkungan eksternal yaitu...",
+        "options": [
+            "A. identitas pemilik perusahaan",
+            "B. lingkungan internal seperti pekerja, manajemen",
+            "C. investor dan pemilik perusahaan yang memiliki peran penuh terhadap perusahaan",
+            "D. faktor dan kekuatan di luar organisasi yang memengaruhi kinerja"
+        ],
+        "correct": 3,
+        "explanation": "Lingkungan eksternal mencakup kekuatan di luar batasan organisasi yang memengaruhi kinerjanya."
+    },
+    {
+        "id": 41,
+        "question": "Karakteristik yang perlu ada pada struktur organisasi adalah ....",
+        "options": [
+            "A. identitas pemilik perusahaan",
+            "B. nama perusahaan",
+            "C. investor dan nama divisi",
+            "D. gugus tugas dan rantai struktur"
+        ],
+        "correct": 3,
+        "explanation": "Rantai komando dan kejelasan pembagian gugus tugas merupakan karakteristik dasar struktur organisasi."
+    },
+    {
+        "id": 42,
+        "question": "Pendekatan dinamika sistem dalam melihat organisasi mengasumsikan...",
+        "options": [
+            "A. organisasi adalah sistem tertutup",
+            "B. struktur sistem memiliki banyak hubungan sirkuler dan interlocking",
+            "C. perilaku organisasi selalu dapat dijelaskan secara sederhana",
+            "D. komponen individu lebih penting daripada keseluruhan sistem"
+        ],
+        "correct": 1,
+        "explanation": "Dinamika sistem mengasumsikan keterkaitan timbal balik (sirkuler dan saling mengunci) antar-elemen."
+    },
+    {
+        "id": 43,
+        "question": "Pada era VUCA (Volatile Uncertain Complexity Ambiguity) saat ini perlu dihadapi dengan...",
+        "options": [
+            "A. unpredictable",
+            "B. vision",
+            "C. community (komunitas)",
+            "D. uncontrollable (tidak dapat di kontrol)"
+        ],
+        "correct": 1,
+        "explanation": "Menurut kerangka VUCA Prime, Volatility dihadapi dengan Vision (Visi yang jelas)."
+    },
+    {
+        "id": 44,
+        "question": "Sifat lingkungan yang dihadapi organisasi menurut Burton dan DeSancis dan Obel yaitu...",
+        "options": [
+            "A. mudah diprediksi dan tidak kompleks",
+            "B. kompleks dan tidak dapat diprediksi",
+            "C. monoton dan berulang",
+            "D. mudah diprediksi dan tidak banyak perbedaan"
+        ],
+        "correct": 1,
+        "explanation": "Lingkungan bisnis kontemporer bersifat sangat kompleks dan bergejolak (sulit diprediksi)."
+    },
+    {
+        "id": 45,
+        "question": "Langkah strategis yang tidak termasuk dalam implementasi manajemen perubahan adalah...",
+        "options": [
+            "A. perubahan pada tingkat individu",
+            "B. perubahan pada tingkat kelompok",
+            "C. perubahan pada tingkat organisasi",
+            "D. menghindari semua jenis perubahan"
+        ],
+        "correct": 3,
+        "explanation": "Menghindari perubahan bertentangan dengan prinsip manajemen perubahan."
+    },
+    {
+        "id": 46,
+        "question": "Sistem terbuka dalam konteks organisasi adalah...",
+        "options": [
+            "A. organisasi tidak memiliki batasan",
+            "B. organisasi berinteraksi dan dipengaruhi oleh lingkungannya",
+            "C. organisasi menolak semua pengaruh eksternal",
+            "D. organisasi hanya fokus pada dinamika internal"
+        ],
+        "correct": 1,
+        "explanation": "Sistem terbuka terus bertukar energi, informasi, dan sumber daya dengan lingkungan sekitarnya."
+    },
+    {
+        "id": 47,
+        "question": "Dibawah ini karakteristik dari sistem tertutup di dalam lingkungan organisasi yaitu sistem tertutup",
+        "options": [
+            "A. dipengaruhi dan berinteraksi dengan lingkungannya",
+            "B. sangat sulit untuk berkembang",
+            "C. tidak dapat memengaruhi proses bisnis",
+            "D. tidak dipengaruhi dan tidak berinteraksi dengan lingkungannya"
+        ],
+        "correct": 3,
+        "explanation": "Sistem tertutup terisolasi dan tidak berinteraksi dengan lingkungan luar."
+    },
+    {
+        "id": 48,
+        "question": "Di bawah ini adalah konsep perubahan organisasi yaitu ....",
+        "options": [
+            "A. melakukan perubahan untuk mengurangi karyawan",
+            "B. sistem tertutup sangat sulit untuk berkembang",
+            "C. melakukan perubahan yang tidak dapat memengaruhi proses bisnis",
+            "D. sistem perencanaan untuk melakukan perbaikan secara berkelanjutan sesuai dengan kebutuhan organisasi"
+        ],
+        "correct": 3,
+        "explanation": "Perubahan organisasi dirancang untuk continuous improvement berkesinambungan."
+    },
+    {
+        "id": 49,
+        "question": "Keuntungan menciptakan perubahan untuk pengembangan organisasi adalah...",
+        "options": [
+            "A. mempertahankan status quo",
+            "B. menghindari adaptasi terhadap lingkungan",
+            "C. menciptakan pola pengembangan yang sesuai dengan kompetensi organisasi",
+            "D. mengabaikan standar kualitas"
+        ],
+        "correct": 2,
+        "explanation": "Perubahan membantu menyelaraskan pola pengembangan dengan keunggulan kompetensi internal."
+    },
+    {
+        "id": 50,
+        "question": "Penggunaan dan perkembangan artificial intelegence (AI) di dalam lingkungan organisasi pendidikan berfungsi sebagai salah satu alat...",
+        "options": [
+            "A. untuk dapat digunakan untuk tugas akhir",
+            "B. untuk menjadi sumber utama dalam pembelajaran",
+            "C. untuk digunakan sebagai pencarian ide dan pengembangan dari sebuah ide saja",
+            "D. untuk dapat digunakan dalam proses seleksi rekrutmen"
+        ],
+        "correct": 2,
+        "explanation": "AI dalam pendidikan berperan pendukung sebagai alat pemantik ide dan eksplorasi konsep."
+    },
+    {
+        "id": 51,
+        "question": "Alasan penting seorang manajer memahami lingkungan organisasi adalah....",
+        "options": [
+            "A. untuk memotivasi karyawan",
+            "B. untuk merekrut karyawan baru",
+            "C. untuk memahami kondisi eksternal sehingga dapat menyinkronkan dengan strategi perusahaan",
+            "D. untuk mengetahui jumlah peserta yang mengikuti proses seleksi rekrutmen"
+        ],
+        "correct": 2,
+        "explanation": "Memahami lingkungan luar memungkinkan perumusan strategi bisnis yang selaras dan adaptif."
+    },
+    {
+        "id": 52,
+        "question": "Alasan pentingnya penggunaan teknologi bagi lingkungan perubahan organisasi adalah untuk...",
+        "options": [
+            "A. memaksakan perubahan untuk dapat dilakukan oleh pekerja",
+            "B. menginternalisasikan penggunaan teknologi di dalam pelayanan bisnis",
+            "C. mempersiapkan teknologi perhitungan budget",
+            "D. mempersiapkan teknologi dalam manajemen kinerja dengan penurunan kompensasi"
+        ],
+        "correct": 1,
+        "explanation": "Teknologi diinternalisasikan ke dalam operasional agar pelayanan bisnis lebih efisien dan modern."
+    },
+    {
+        "id": 53,
+        "question": "Menurut dimensi kognitif dalam teori masyarakat terbuka dan tertutup berfokus pada",
+        "options": [
+            "A. posisi sosial individu",
+            "B. pengaruh individu terhadap masyarakat",
+            "C. falibilitas atau infalibilitas kognisi manusia",
+            "D. struktur hierarki organisasi"
+        ],
+        "correct": 2,
+        "explanation": "Dimensi kognitif menyoroti batas dan kerapuhan (falibilitas) pemikiran serta pengetahuan manusia."
+    },
+    {
+        "id": 54,
+        "question": "Langkah - langkah implementasi manajemen perubahan yang tepat di dalam organisasi adalah...",
+        "options": [
+            "A. memaksakan perubahan untuk dapat dilakukan",
+            "B. mengkomunikasikan perubahan kepada seluruh pegawai",
+            "C. mempersiapkan perhitungan budget dalam melakukan perubahan",
+            "D. mempersiapkan keterkaitan manajemen kinerja dengan kompensasi"
+        ],
+        "correct": 1,
+        "explanation": "Komunikasi yang efektif dan terbuka kepada seluruh staf merupakan kunci sukses implementasi perubahan."
+    },
+    {
+        "id": 55,
+        "question": "Menurut Anda pembayaran dengan menggunakan financial technology dan melalui QRIS adalah contoh perubahan dari layanan",
+        "options": [
+            "A. keuangan",
+            "B. SDM",
+            "C. pemasaran",
+            "D. keamanan"
+        ],
+        "correct": 0,
+        "explanation": "QRIS dan Fintech merupakan inovasi pada sektor layanan sistem pembayaran & keuangan."
+    },
+    {
+        "id": 56,
+        "question": "Trend perubahan organisasi saat ini adalah",
+        "options": [
+            "A. trend organisasi yang lebih kaku dan pragmatis",
+            "B. struktur organisasi birokrasi",
+            "C. perubahan organisasi lebih dinamis dan berkembang",
+            "D. jumlah karyawan yang ikut dan peningkatan karier yang lebih lambat"
+        ],
+        "correct": 2,
+        "explanation": "Tren organisasi saat ini sangat dinamis, fleksibel, serta berorientasi tumbuh (agile)."
+    },
+    {
+        "id": 57,
+        "question": "Di bawah ini merupakan tahapan awal perubahan organisasi saat ini ....",
+        "options": [
+            "A. mempersiapkan perencanaan dan tujuan di dalam melakukan perubahan",
+            "B. mengubah struktur organisasi",
+            "C. perubahan organisasi dimulai dari peraturan",
+            "D. menetapkan jumlah karyawan yang ikut & peningkatan karir yang lebih efektif"
+        ],
+        "correct": 0,
+        "explanation": "Langkah awal selalu dimulai dari penetapan sasaran, visi, dan perencanaan strategi."
+    },
+    {
+        "id": 58,
+        "question": "Berikut ini adalah ciri-ciri dari inovasi, yaitu:",
+        "options": [
+            "A. terjadinya sentralisasi kebijakan",
+            "B. budaya organisasi lebih terbuka dan adaptif",
+            "C. adanya kepimpinan yang otoriter",
+            "D. pengelolaan risiko yang kurang baik"
+        ],
+        "correct": 1,
+        "explanation": "Inovasi tumbuh subur dalam budaya organisasi yang adaptif, transparan, dan inklusif."
+    },
+    {
+        "id": 59,
+        "question": "Dibawah ini yang dimaksud dengan tahap 'Enable' dalam proses inovasi adalah...",
+        "options": [
+            "A. perusahaan mulai memproduksi produk baru",
+            "B. perusahaan memfungsikan kekuatan yang dimiliki untuk melakukan inovasi",
+            "C. perusahaan menutup semua divisi yang tidak menguntungkan",
+            "D. perusahaan hanya fokus pada pemasaran"
+        ],
+        "correct": 1,
+        "explanation": "Tahap Enable mengaktifkan dan memfasilitasi sumber daya internal demi terwujudnya inovasi."
+    },
+    {
+        "id": 60,
+        "question": "Inovasi memiliki 6 (enam) sifat perubahan yaitu...",
+        "options": [
+            "A. perumusan, perencanaan, pergantian, perubahan, persamaan, penghapusan",
+            "B. penggantian, perubahan, penambahan, penyusunan kembali, penghapusan, penguatan",
+            "C. pelaksanaan, perumusan, perencanaan, pemberkasan, pelaksanaan, perubahan",
+            "D. perencanaan, pemberkasan, pelaksanaan, pengembangan, pelaksanaan, pergantian"
+        ],
+        "correct": 1,
+        "explanation": "Enam bentuk/sifat perubahan inovasi: replacement, alteration, addition, restructuring, elimination, dan reinforcement."
+    },
+    {
+        "id": 61,
+        "question": "Di bawah ini perbedaan utama antara kreativitas dan inovasi adalah...",
+        "options": [
+            "A. kreativitas selalu menghasilkan produk baru, sedangkan inovasi tidak",
+            "B. inovasi selalu membutuhkan teknologi baru, sedangkan kreativitas tidak",
+            "C. kreativitas adalah kemampuan menciptakan ide baru, sedangkan inovasi adalah implementasi ide tersebut",
+            "D. tidak ada perbedaan antara kreativitas dan inovasi"
+        ],
+        "correct": 2,
+        "explanation": "Kreativitas mencetuskan gagasan (idea generation), sedangkan inovasi mengeksekusi ide tersebut menjadi nilai (implementation)."
+    },
+    {
+        "id": 62,
+        "question": "Di bawah ini keterkaitan antara inovasi, kreativitas dan entrepreneurial yaitu....",
+        "options": [
+            "A. kreativitas adalah awal dari inovasi, dan inovasi adalah cikal bakal dari entrepreneurial",
+            "B. inovasi tidak memerlukan kreativitas",
+            "C. kreativitas dan inovasi adalah bagian dari entrepreneurial",
+            "D. kreativitas adalah akhir dari inovasi, dan inovasi adalah bagian entrepreneurial"
+        ],
+        "correct": 0,
+        "explanation": "Kreativitas melahirkan gagasan inovatif, dan keberhasilan eksekusi inovasi membentuk jiwa kewirausahaan."
+    },
+    {
+        "id": 63,
+        "question": "Proses inovasi organisasi yang menganut sistem manajemen perubahan adalah",
+        "options": [
+            "A. kreativitas adalah awal dari inovasi, dan inovasi adalah cikal bakal dari entrepreneurial",
+            "B. inovasi tidak memerlukan kreativitas",
+            "C. kreativitas dan inovasi adalah bagian dari entrepreneurial",
+            "D. kreativitas adalah akhir dari inovasi, dan inovasi adalah bagian entrepreneurial"
+        ],
+        "correct": 0,
+        "explanation": "Rangkaian proses inovasi berakar pada kreativitas yang bermuara pada nilai-nilai kewirausahaan."
+    },
+    {
+        "id": 64,
+        "question": "Berikut ini merupakan strategi awal di dalam melakukan inovasi dalam suatu organisasi, yaitu",
+        "options": [
+            "A. membangun kultur inovatif dan tujuan inovasi",
+            "B. melakukan pergantian karyawan",
+            "C. melakukan pengkajian gaji dan insentif",
+            "D. melakukan pergantian model bisnis"
+        ],
+        "correct": 0,
+        "explanation": "Membangun budaya inovatif yang suportif merupakan pondasi awal menciptakan inovasi."
+    },
+    {
+        "id": 65,
+        "question": "Macam-macam inovasi pada suatu organisasi yaitu...",
+        "options": [
+            "A. event, proses, kapabilitas",
+            "B. kapasitas, inovasi, perubahan",
+            "C. proses, kompetensi, kapasitas",
+            "D. kapabilitas, kompetensi, inovasi"
+        ],
+        "correct": 0,
+        "explanation": "Kategori jenis inovasi organisasi mencakup event (kejadian), proses, dan kapabilitas."
+    },
+    {
+        "id": 66,
+        "question": "Di bawah ini yang dimaksud dengan tahap 'Empower Tool' dalam proses inovasi adalah...",
+        "options": [
+            "A. perusahaan memberhentikan semua kariyawan",
+            "B. perusahaan hanya menggunakan teknologi lama",
+            "C. perusahaan mengimplementasikan ide-ide yang sudah dirancang sebelumnya",
+            "D. perusahaan menghindari semua bentuk kreativitas"
+        ],
+        "correct": 2,
+        "explanation": "Tahap Empower Tool membekali dan mempraktikkan gagasan yang telah dirancang."
+    },
+    {
+        "id": 67,
+        "question": "Menurut Anda mengapa penting untuk mengkomunikasikan perubahan kepada karyawan adalah...",
+        "options": [
+            "A. untuk menghindari resistensi",
+            "B. untuk memenuhi persyaratan hukum",
+            "C. untuk meningkatkan keuntungan organisasi",
+            "D. untuk mempromosikan organisasi kepada pihak luar"
+        ],
+        "correct": 0,
+        "explanation": "Komunikasi yang jelas dan terbuka meminimalkan penolakan (resistensi) dari karyawan."
+    },
+    {
+        "id": 68,
+        "question": "Peran seorang pimpinan untuk mendorong terciptanya suatu inovasi dalam organisasi yaitu",
+        "options": [
+            "A. mencari banyak sumber daya keuangan",
+            "B. mempersiapkan perencanaan alat, lingkungan dan budaya organisasi",
+            "C. mempersiapkan tekad yang jelas",
+            "D. memiliki jejak masa lalu yang kurang baik"
+        ],
+        "correct": 1,
+        "explanation": "Pemimpin bertugas memfasilitasi ekosistem: alat kerja, iklim lingkungan, dan budaya pendukung."
+    },
+    {
+        "id": 69,
+        "question": "Salah satu alasan mengapa organisasi gagal melakukan inovasi yaitu....",
+        "options": [
+            "A. memiliki banyak sumber daya keuangan",
+            "B. terlalu nyaman dengan posisi saat ini",
+            "C. memiliki tekad dan target yang jelas",
+            "D. memiliki jejak masa lalu yang kurang baik"
+        ],
+        "correct": 1,
+        "explanation": "Komplasensi atau terlalu nyaman dengan pencapaian saat ini memicu kegagalan berinovasi."
+    },
+    {
+        "id": 70,
+        "question": "Konsep sistem terbuka di dalam organisasi yaitu...",
+        "options": [
+            "A. sistem yang mampu dipengaruhi namun tidak mampu beradaptasi dengan lingkungan lain",
+            "B. sistem internal di dalam perusahaan untuk menarik pelanggan baru",
+            "C. sistem yang tidak dipengaruhi dan juga tidak mampu beradaptasi dengan lingkungan lain",
+            "D. sistem yang mampu dipengaruhi dan juga mampu beradaptasi dengan lingkungan lain"
+        ],
+        "correct": 3,
+        "explanation": "Sistem terbuka responsif terhadap pengaruh luar dan mampu menyesuaikan diri (adaptif)."
+    },
+    {
+        "id": 71,
+        "question": "Alasan suatu inovasi tidak berhasil dan berjalan pada suatu perusahaan adalah ....",
+        "options": [
+            "A. inovasi yang dilakukan belum mendapatkan dukungan dari pemerintah",
+            "B. sistem internal didalam perusahaan dapat menarik pelanggan baru",
+            "C. sistem yang tidak dipengaruhi dan juga tidak mampu beradaptasi dengan lingkungan lain",
+            "D. tidak disiapkannya kompetensi, kapabilitas dan infrastruktur organisasi"
+        ],
+        "correct": 3,
+        "explanation": "Tanpa kesiapan skill, kapabilitas SDM, dan infrastruktur pendukung, inovasi akan gagal."
+    },
+    {
+        "id": 72,
+        "question": "Dari perspektif lingkungan, organisasi dipandang...",
+        "options": [
+            "A. sebagai sistem tertutup",
+            "B. sebagai instrumen yang menyediakan produk atau jasa",
+            "C. sebagai entitas mandiri",
+            "D. sebagai penerima pasif pengaruh eksternal"
+        ],
+        "correct": 1,
+        "explanation": "Organisasi dipandang sebagai instrumen pemenuh kebutuhan lingkungan melalui penyediaan barang/jasa."
+    },
+    {
+        "id": 73,
+        "question": "Tantangan keberhasilan inovasi di dalam organisasi, adalah ....",
+        "options": [
+            "A. sistem yang dapat berdaatasi dengan lingkungannya",
+            "B. kapabilitas dan kompetensi organisasi belum dapat diikuti yang baik",
+            "C. kepemimpinan yang dapat beradaatasi dengan cepat",
+            "D. tim kerja yang dapat diandakan"
+        ],
+        "correct": 1,
+        "explanation": "Kesenjangan antara ide inovatif dengan ketidaksiapan kompetensi menjadi hambatan besar."
+    },
+    {
+        "id": 74,
+        "question": "Jenis kontrol yang secara khusus disebutkan sebagai kebutuhan untuk organisasi sistem terbuka adalah",
+        "options": [
+            "A. kontrol hierarkis yang ketat",
+            "B. sistem kontrol otomatis",
+            "C. sistem kontrol khusus karena fleksibilitas",
+            "D. mekanisme kontrol yang mengatur diri sendiri"
+        ],
+        "correct": 3,
+        "explanation": "Sistem terbuka membutuhkan mekanisme kontrol mandiri (self-regulating mechanism) agar tetap fleksibel."
+    },
+    {
+        "id": 75,
+        "question": "Di bawah ini yang dimaksud sistem tertutup di dalam organisasi yaitu sistem yang",
+        "options": [
+            "A. dapat beradaptasi dengan lingkungannya",
+            "B. tidak bisa dipengaruhi dan tidak mampu beradaptasi dengan lingkungannya",
+            "C. belum dapat beradaptasi dengan lingkungannya",
+            "D. dapat beradaptasi dengan lingkungan internal dan eksternal"
+        ],
+        "correct": 1,
+        "explanation": "Sistem tertutup bersifat rigid, tidak menerima masukan luar, dan tidak adaptif."
+    },
+    {
+        "id": 76,
+        "question": "Di bawah ini yang harus dilakukan pemimpin untuk memotivasi karyawan dalam proses perubahan adalah....",
+        "options": [
+            "A. memberikan ancaman PHK",
+            "B. mempercayai, membimbing, dan memaafkan kesalahan selama proses perubahan",
+            "C. mengabaikan karyawan yang resisten",
+            "D. memaksa karyawan untuk menerima perubahan"
+        ],
+        "correct": 1,
+        "explanation": "Memimpin dengan pembimbingan, kepercayaan, dan toleransi terhadap proses belajar mengurangi ketakutan akan perubahan."
+    },
+    {
+        "id": 77,
+        "question": "Salah satu prinsip perubahan yang terjadi pada suatu organisasi adalah",
+        "options": [
+            "A. hanya dilakukan oleh beberapa orang saja",
+            "B. perubahan untuk memberikan bonus bagi seluruh karyawan",
+            "C. harus dikomunikasikan secara menyeluruh dan memiliki tujuan yang jelas",
+            "D. perubahan untuk meningkatkan kedisiplinan dan absensi"
+        ],
+        "correct": 2,
+        "explanation": "Prinsip utama perubahan adalah kejelasan tujuan serta sosialisasi secara menyeluruh."
+    },
+    {
+        "id": 78,
+        "question": "Cara manajer perusahaan dalam meminimalisir resistensi yaitu dengan ....",
+        "options": [
+            "A. memberikan kesempatan untuk pindah tempat kerja",
+            "B. menyamakan bonus bagi seluruh karyawan",
+            "C. menyampaikan tujuan dan rencana perubahan secara menyeluruh",
+            "D. meningkatkan kedisiplinan dan absensi"
+        ],
+        "correct": 2,
+        "explanation": "Keterbukaan tujuan dan penyampaian rencana yang gamblang efektif menekan resistensi."
+    },
+    {
+        "id": 79,
+        "question": "Dalam perencanaan perubahan organisasi, biasanya dimulai dengan sejumlah pertanyaan penting yaitu...",
+        "options": [
+            "A. kapan perubahan dapat dijalankan",
+            "B. visi, misi dan tujuan yang ingin dicapai dengan perubahan",
+            "C. tim perubahan yang kurang jelas",
+            "D. risiko perubahan jangka panjang"
+        ],
+        "correct": 1,
+        "explanation": "Pertanyaan fundamental perencanaan berkisar pada 'mengapa berubah' dan 'apa visi/tujuan yang dikejar'."
+    },
+    {
+        "id": 80,
+        "question": "Menurut Green, faktor penting dalam perubahan organisasi yaitu ....",
+        "options": [
+            "A. pengelolaan keuangan",
+            "B. pengelolaan teknologi",
+            "C. pengelolaan individu secara tepat",
+            "D. pengelolaan struktur organisasi"
+        ],
+        "correct": 2,
+        "explanation": "Perspektif Green menekankan pentingnya pengelolaan faktor manusia (individu) secara tepat."
+    },
+    {
+        "id": 81,
+        "question": "Faktor penting untuk mempersiapkan kesiapan organisasi di dalam menghadapi perubahan adalah",
+        "options": [
+            "A. meningkatkan kerjasama tim di dalam divisi",
+            "B. meningkatkan awareness dan pemahaman perubahan",
+            "C. memiliki tim perubahan yang sedikit",
+            "D. tidak memiliki kemenangan perubahan jangka pendek"
+        ],
+        "correct": 1,
+        "explanation": "Membangun kesadaran (awareness) dan pemahaman akan alasan perubahan menumbuhkan kesiapan."
+    },
+    {
+        "id": 82,
+        "question": "Salah satu perusahaan yang berhasil melakukan perubahan yaitu PT KAI pada saat pimpinan Ignatius Jonan. Hal yang pertama kali dilakukan oleh Jonan sebagai direktur utama yaitu....",
+        "options": [
+            "A. memperbaiki struktur gaji, bonus dan pengukuran kinerja pegawai",
+            "B. melakukan pemutusan hubungan kerja",
+            "C. melakukan perombakan mulai dari jajaran pimpinan",
+            "D. membuat peraturan yang signifikan"
+        ],
+        "correct": 0,
+        "explanation": "Jonan mengawali reformasi KAI dengan pembenahan kesejahteraan, sistem insentif, dan penilaian kinerja pegawai."
+    },
+    {
+        "id": 83,
+        "question": "Salah satu perusahaan yang berhasil melakukan perubahan yaitu PT. KAI pada saat pimpinan Ignatius Jonan. Hal pertama kali yang BUKAN dilakukan oleh Jonan sebagai direktur utama....",
+        "options": [
+            "A. memperbaiki struktur gaji, bonus dan pengukuran kinerja pegawai",
+            "B. melakukan pemutusan kerja",
+            "C. melakukan pelatihan SDM",
+            "D. membuat para karyawan untuk melanjutkan pendidikan"
+        ],
+        "correct": 1,
+        "explanation": "Pemutusan Hubungan Kerja (PHK) massal bukan merupakan langkah awal yang diambil Jonan."
+    },
+    {
+        "id": 84,
+        "question": "Salah satu cara untuk menciptakan awareness di dalam perusahaan adalah....",
+        "options": [
+            "A. melakukan komunikasi efektif dan target perubahan",
+            "B. melakukan pemutusan kerja",
+            "C. melakukan perombakan dari jajaran pimpinan",
+            "D. membuat peraturan yang signifikan"
+        ],
+        "correct": 0,
+        "explanation": "Komunikasi yang efektif dan sosialisasi target perubahan secara konsisten menumbuhkan kesadaran."
+    },
+    {
+        "id": 85,
+        "question": "Berikut ini sumber-sumber resistensi pada organisasi perubahan adalah ....",
+        "options": [
+            "A. resistensi bersumber dari pemerintah",
+            "B. resistensi bersumber dari investor",
+            "C. resistensi bersumber dari individu",
+            "D. resistensi bersumber dari orang luar"
+        ],
+        "correct": 2,
+        "explanation": "Resistensi individual (kekhawatiran personal, kebiasaan, rasa takut) adalah salah satu sumber utama penolakan."
+    },
+    {
+        "id": 86,
+        "question": "Menurut Dawson, apa yang bukan merupakan faktor penyebab resistensi?",
+        "options": [
+            "A. perubahan substantif dalam pekerjaan",
+            "B. pengurangan keamanan ekonomi",
+            "C. ancaman psikologis",
+            "D. peningkatan status"
+        ],
+        "correct": 3,
+        "explanation": "Peningkatan status merupakan hal positif yang justru didukung, bukan memicu resistensi."
+    },
+    {
+        "id": 87,
+        "question": "Berikut ini adalah konsep resistensi yang muncul pada seorang individu yang disebabkan oleh perubahan yaitu....",
+        "options": [
+            "A. changing allegiance",
+            "B. turf protection",
+            "C. blind resistance",
+            "D. culture resistance"
+        ],
+        "correct": 2,
+        "explanation": "Blind resistance (penolakan buta) terjadi ketika individu menolak perubahan tanpa alasan yang rasional."
+    },
+    {
+        "id": 88,
+        "question": "Manfaat yang didapatkan jika organisasi dapat menyelesaikan hambatan dalam organisasi adalah",
+        "options": [
+            "A. terjadi banyaknya resistensi baik untuk menciptakan konflik",
+            "B. mengurangi hambatan untuk melakukan perubahan akan lebih efektif dan cepat",
+            "C. merasa sudah sukses sehingga mau terus melakukan perubahan",
+            "D. perubahan untuk mendapatkan posisi jabatan"
+        ],
+        "correct": 1,
+        "explanation": "Mengatasi hambatan memperlancar akselerasi dan efektivitas proses transformasi."
+    },
+    {
+        "id": 89,
+        "question": "Yang dimaksud dengan success syndrome yaitu merasa",
+        "options": [
+            "A. masih banyak kekurangan sehingga melakukan perubahan",
+            "B. sudah sukses sehingga tidak ingin melakukan perubahan",
+            "C. sudah sukses sehingga mau terus melakukan perubahan",
+            "D. selalu haus akan posisi jabatan"
+        ],
+        "correct": 1,
+        "explanation": "Success syndrome (sindrom keberhasilan) membuat organisasi puas diri sehingga menolak perubahan."
+    },
+    {
+        "id": 90,
+        "question": "Menurut Cook dan Macaulay, yang BUKAN merupakan alasan kegagalan dan hambatan perubahan organisasi adalah....",
+        "options": [
+            "A. kurangnya alasan yang meyakinkan untuk perlunya perubahan",
+            "B. tujuan dan sasaran perubahan yang tidak jelas",
+            "C. kegagalan dalam melibatkan seluruh pihak yang akan terkena perubahan",
+            "D. terlalu banyak dukungan dari petinggi organisasi"
+        ],
+        "correct": 3,
+        "explanation": "Dukungan kuat dari pimpinan (top management support) justru mendorong keberhasilan, bukan kegagalan."
+    },
+    {
+        "id": 91,
+        "question": "Metode yang dapat digunakan untuk mengurangi resistensi perubahan yaitu dengan memberikan",
+        "options": [
+            "A. edukasi dan komunikasi",
+            "B. pemahaman terhadap reward dan punishment",
+            "C. hukuman dan penundaan kenaikan jabatan",
+            "D. peringatan administrasi"
+        ],
+        "correct": 0,
+        "explanation": "Edukasi dan komunikasi berkelanjutan merupakan pendekatan paling dasar dan utama meredam penolakan."
+    },
+    {
+        "id": 92,
+        "question": "Yang dimaksud resistensi organisasi adalah",
+        "options": [
+            "A. kecenderungan organisasi untuk menolak perubahan dan ingin mempertahankan status quo",
+            "B. penolakan yang muncul pada individu terhadap adanya perubahan dalam suatu organisasi",
+            "C. kecenderungan individu menolak perubahan",
+            "D. tidak ada kompromi dan negosiasi dalam perubahan"
+        ],
+        "correct": 0,
+        "explanation": "Resistensi organisasional adalah inersia sistemik organisasi untuk mempertahankan kondisi eksisting (status quo)."
+    },
+    {
+        "id": 93,
+        "question": "Di bawah ini yang dimaksud dengan 'diversionary tactics' dalam resistensi organisasional adalah...",
+        "options": [
+            "A. taktik untuk mengalihkan perhatian dari perubahan",
+            "B. taktik untuk mempercepat perubahan",
+            "C. taktik untuk menghentikan perubahan",
+            "D. taktik untuk menganalisis perubahan"
+        ],
+        "correct": 0,
+        "explanation": "Diversionary tactics adalah taktik pengalihan fokus dari agenda perubahan utama."
+    },
+    {
+        "id": 94,
+        "question": "Faktor-faktor yang dapat memicu resistensi yaitu:",
+        "options": [
+            "A. adanya risiko yang rendah dalam perubahan",
+            "B. kepastian dalam perubahan",
+            "C. kesiapan organisasi yang sudah siap",
+            "D. ketidakpastian dalam perubahan"
+        ],
+        "correct": 3,
+        "explanation": "Ketidakpastian (uncertainty) menimbulkan keraguan dan kecemasan yang memicu penolakan."
+    },
+    {
+        "id": 95,
+        "question": "Alasan resistensi dapat memberikan nilai positif bagi perusahaan adalah ....",
+        "options": [
+            "A. adanya risiko resistensi dalam perubahan yang tidak dapat",
+            "B. resistensi dapat memberikan kepastian dalam perubahan",
+            "C. resistensi dapat memberikan keretakan hubungan baik",
+            "D. karena resistensi termasuk masalah yang memberikan perspektif lain bagi perusahaan"
+        ],
+        "correct": 3,
+        "explanation": "Resistensi memberikan sinyal dan sudut pandang alternatif untuk menyempurnakan rancangan perubahan."
+    },
+    {
+        "id": 96,
+        "question": "Manakah yang BUKAN merupakan fase dalam kurva transisi resistensi individu?",
+        "options": [
+            "A. keterkajutan",
+            "B. penolakan",
+            "C. kemarahan",
+            "D. stagnasi"
+        ],
+        "correct": 3,
+        "explanation": "Stagnasi bukan merupakan tahapan baku dalam kurva transisi penerimaan perubahan (change curve)."
+    },
+    {
+        "id": 97,
+        "question": "Gaya kepemimpinan yang efektif yang dapat diterapkan di dalam organisasi perubahan adalah....",
+        "options": [
+            "A. pemimpin yang lebih kaku dan tidak mengikuti peraturan",
+            "B. pemimpin yang tidak memahami kondisi internal lapangan",
+            "C. pemimpin yang lebih adaptif, kolaboratif dan inovatif",
+            "D. leader yang otoriter"
+        ],
+        "correct": 2,
+        "explanation": "Dalam suasana perubahan, dibutuhkan pemimpin yang fleksibel/adaptif, suka berkolaborasi, dan inovatif."
+    },
+    {
+        "id": 98,
+        "question": "Perbedaan sumber kewenangan dari leader dan manajer di perusahaan yaitu leader lebih",
+        "options": [
+            "A. prosedural dan manajer tidak prosedural",
+            "B. mematuhi peraturan dan manajer tidak mematuhi peraturan",
+            "C. informal dan manajer secara formal",
+            "D. efektif dan manajer lebih efisien"
+        ],
+        "correct": 2,
+        "explanation": "Leader memperoleh pengaruh melalui hubungan informal dan kepercayaaan, sedangkan manajer berdasar otoritas posisi formal."
+    },
+    {
+        "id": 99,
+        "question": "Di bawah ini yang menjadi perbedaan utama antara seorang manajer dan seorang leader adalah",
+        "options": [
+            "A. manajer selalu memiliki otoritas formal, sedangkan leader tidak",
+            "B. leader selalu memiliki pengikut informal, sedangkan manajer tidak",
+            "C. manajer fokus pada tugas administratif, sedangkan leader fokus pada visi dan perubahan",
+            "D. tidak ada perbedaan signifikan antara manajer dan leader"
+        ],
+        "correct": 2,
+        "explanation": "Manajer mengelola keteraturan dan administrasi operasional, sedangkan leader menginspirasi visi dan arah perubahan."
+    },
+    {
+        "id": 100,
+        "question": "Peran seorang pemimpin yang dapat melakukan perubahan di dalam perubahan adalah",
+        "options": [
+            "A. inklusivitas dan agile (cepat tanggap)",
+            "B. dapat meningkatkan kinerja karyawan",
+            "C. tercapainya target perusahaan",
+            "D. dapat mengurangi turn over"
+        ],
+        "correct": 0,
+        "explanation": "Karakter kepemimpinan perubahan adalah mengedepankan inklusivitas serta ketanggapan yang lincah (agile)."
+    },
+    {
+        "id": 101,
+        "question": "Dibawah ini yang dimaksud dengan 'era digitalisasi' dalam konteks kepemimpinan yaitu...",
+        "options": [
+            "A. penggunaan komputer di kantor",
+            "B. pergeseran menyeluruh ke arah teknologi digital dalam operasi dan strategi organisasi",
+            "C. penghapusan semua dokumen fisik",
+            "D. penggunaan media sosial untuk pemasaran"
+        ],
+        "correct": 1,
+        "explanation": "Digitalisasi mencakup pergeseran holistik menuju pengadopsian teknologi digital di seluruh rantai nilai organisasi."
+    },
+    {
+        "id": 102,
+        "question": "Karakter seorang pemimpin yang dapat melakukan perubahan yaitu....",
+        "options": [
+            "A. inklusivitas dan cepat tanggap",
+            "B. meningkatkan kinerja karyawan",
+            "C. meningkatkan target perusahaan",
+            "D. mengurangi turn over"
+        ],
+        "correct": 0,
+        "explanation": "Sifat terbuka/inklusif dan respon cepat tanggap adalah ciri pemimpin agen perubahan."
+    },
+    {
+        "id": 103,
+        "question": "Definisi dari budaya organisasi yaitu....",
+        "options": [
+            "A. sistem, value dan kepercayaan yang ada di dalam organisasi",
+            "B. target dan kriteria",
+            "C. guideline untuk bagaimana kepemimpinan manajer",
+            "D. peraturan untuk pengembangan organisasi"
+        ],
+        "correct": 0,
+        "explanation": "Budaya organisasi adalah kumpulan asumsi dasar, nilai-nilai (values), norma, dan keyakinan bersama."
+    },
+    {
+        "id": 104,
+        "question": "Trend budaya organisasi di era industri 4.0 yaitu",
+        "options": [
+            "A. budaya organisasi lebih terbuka dan flexiworking",
+            "B. budaya organisasi lebih tertutup",
+            "C. budaya pekerjaan yang lebih individuais",
+            "D. budaya organisasi yang birokratis"
+        ],
+        "correct": 0,
+        "explanation": "Era industri 4.0 mendorong pola kerja yang terbuka, kolaboratif, dan sistem kerja fleksibel (flexiworking)."
+    },
+    {
+        "id": 105,
+        "question": "Dibawah ini yang dimaksud dengan 'nilai-nilai yang diunggulkan' dalam kategori definisi budaya organisasi adalah....",
+        "options": [
+            "A. nilai-nilai pribadi pemimpin",
+            "B. prinsip dan nilai yang diartikulasikan dan diumumkan secara publik",
+            "C. nilai-nilai yang dianut secara diam-diam",
+            "D. nilai-nilai yang dipaksakan pada karyawan"
+        ],
+        "correct": 1,
+        "explanation": "Espoused values (nilai yang diunggulkan) adalah nilai yang secara eksplisit dideklarasikan kepada umum."
+    },
+    {
+        "id": 106,
+        "question": "Proses konsep tahapan model perubahan menurut Lewin ....",
+        "options": [
+            "A. moving, constant, review",
+            "B. unfreezing, change, refreezing",
+            "C. planning, do, action",
+            "D. refreezing, planning, evaluation"
+        ],
+        "correct": 1,
+        "explanation": "Model perubahan Kurt Lewin terdiri dari 3 tahap: Unfreezing, Change (Moving), dan Refreezing."
+    },
+    {
+        "id": 107,
+        "question": "Model perubahan menurut Lewin yaitu....",
+        "options": [
+            "A. moving, constant, review",
+            "B. unfreezing, change, refreezing",
+            "C. planning, do, action",
+            "D. refreezing, planning, evaluation"
+        ],
+        "correct": 1,
+        "explanation": "Tahapan Lewin: Unfreezing (pencairan), Change (perubahan), Refreezing (pembekuan kembali)."
+    },
+    {
+        "id": 108,
+        "question": "Yang dimaksud budaya organisasi dalam perubahan adalah",
+        "options": [
+            "A. sistem, value, belief yang tidak berkembang",
+            "B. sistem, value, belief yang harus adaptif terhadap perubahan",
+            "C. perubahan dalam konteks perbaikan yang kurang fleksibel",
+            "D. perubahan budaya yang konstan"
+        ],
+        "correct": 1,
+        "explanation": "Budaya organisasi yang sehat harus adaptif dan dinamis mengikuti tantangan zaman."
+    },
+    {
+        "id": 109,
+        "question": "Di bawah ini yang bukan termasuk dalam perubahan transisional ....",
+        "options": [
+            "A. mengubah tatanan perusahaan lewat merger",
+            "B. merger",
+            "C. konsolidasi sederhana",
+            "D. merger dan konsolidasi"
+        ],
+        "correct": 0,
+        "explanation": "Mengubah total tatanan mendasar perusahaan lebih tergolong perubahan transformasional dibanding sekadar transisional."
+    },
+    {
+        "id": 110,
+        "question": "Di bawah ini bentuk-bentuk perubahan transformasional adalah ....",
+        "options": [
+            "A. mengubah tatanan manusia",
+            "B. mengubah peraturan diskriminasi & pengelolaan lingkungan hidup",
+            "C. mengubah SOP",
+            "D. perubahan secara menyeluruh dan signifikan"
+        ],
+        "correct": 3,
+        "explanation": "Perubahan transformasional berdampak secara mendalam, mendasar, menyeluruh, dan signifikan."
+    },
+    {
+        "id": 111,
+        "question": "Konsep dari perubahan transisional yaitu...",
+        "options": [
+            "A. mengubah tatanan manusia",
+            "B. mengubah peraturan diskriminasi dan pengelolaan lingkungan hidup",
+            "C. mengubah standar operasional prosedur",
+            "D. merger atau konsolidasi sederhana"
+        ],
+        "correct": 3,
+        "explanation": "Perubahan transisional melibatkan penggantian keadaan lama dengan keadaan baru yang terstruktur seperti merger."
+    },
+    {
+        "id": 112,
+        "question": "Tujuan utama perumusan strategi baru berbasis analisis SWOT adalah....",
+        "options": [
+            "A. mencocokan kekuatan dan peluang, kelemahan dan ancaman untuk menciptakan strategi baru",
+            "B. menggunakan kekuatan saja dalam menciptakan strategi baru",
+            "C. menggunakan kelemahan saja dalam menciptakan strategi baru",
+            "D. menggunakan ancaman saja dalam menciptakan strategi baru"
+        ],
+        "correct": 0,
+        "explanation": "Analisis SWOT menyelaraskan faktor internal (Strengths, Weaknesses) dengan eksternal (Opportunities, Threats)."
+    },
+    {
+        "id": 113,
+        "question": "Konsep dan faktor dari SWOT analysis yaitu...",
+        "options": [
+            "A. memetakan kekuatan, kelemahan, peluang dan ancaman",
+            "B. merencanakan kelemahan perusahaan",
+            "C. merencanakan seluruh karyawan",
+            "D. merencanakan dalam memilih manajer"
+        ],
+        "correct": 0,
+        "explanation": "SWOT memetakan 4 matriks: Kekuatan (Strengths), Kelemahan (Weaknesses), Peluang (Opportunities), dan Ancaman (Threats)."
+    },
+    {
+        "id": 114,
+        "question": "Konsep dan faktor SWOT analysis adalah....",
+        "options": [
+            "A. memetakan kekuatan, kelemahan, peluang dan ancaman",
+            "B. merencanakan kelemahan perusahaan",
+            "C. merencanakan seluruh karyawan",
+            "D. plan memilih manajer"
+        ],
+        "correct": 0,
+        "explanation": "Faktor SWOT berfokus pada analisis mendalam aspek internal dan eksternal organisasi."
+    },
+    {
+        "id": 115,
+        "question": "Salah satu penerapan perubahan dari sisi konsumen adalah",
+        "options": [
+            "A. konsumen diberikan informasi terkait perencanaan perusahaan",
+            "B. konsumen diberikan informasi terkait produk",
+            "C. konsumen diberikan hak untuk proteksi data keamanan konsumen",
+            "D. konsumen diberikan informasi terkait pelayanan"
+        ],
+        "correct": 2,
+        "explanation": "Pemberian hak perlindungan data dan privasi konsumen merupakan bentuk adaptasi perubahan standar modern."
+    },
+    {
+        "id": 116,
+        "question": "Salah satu implementasi perubahan dari sisi konsumen adalah konsumen diberikan",
+        "options": [
+            "A. informasi terkait perencanaan perusahaan",
+            "B. informasi terkait produk",
+            "C. hak untuk proteksi data keamanan konsumen",
+            "D. informasi terkait pelayanan"
+        ],
+        "correct": 2,
+        "explanation": "Jaminan proteksi data privasi adalah standar perwujudan hak konsumen di era digital."
+    },
+    {
+        "id": 117,
+        "question": "Konsep pengawasan perubahan adalah",
+        "options": [
+            "A. pengawasan perusahaan untuk tatalekola keuangan",
+            "B. tata kelola konsumen diberikan informasi terkait produk dan perusahaan",
+            "C. suatu proses kegiatan yang dilakukan untuk memantau, mengukur dan bila perlu melakukan perbaikan atas pelaksanaan pekerjaan",
+            "D. pelayanan yang diberikan informasi terkait pelayanan"
+        ],
+        "correct": 2,
+        "explanation": "Pengawasan (controlling) adalah proses memantau, mengukur pencapaian, dan mengoreksi penyimpangan pelaksanaan."
+    },
+    {
+        "id": 118,
+        "question": "Langkah organisasi yang harus dilakukan dalam melakukan perubahan yaitu....",
+        "options": [
+            "A. merencanakan kesiapan niat",
+            "B. memberikan informasi program dan rencana perubahan",
+            "C. memberikan bonus sebelum dilakukan perubahan",
+            "D. tidak menginformasikan rencana strategi perusahaan"
+        ],
+        "correct": 1,
+        "explanation": "Langkah krusial adalah menyosialisasikan rencana dan program perubahan kepada seluruh anggota organisasi."
+    },
+    {
+        "id": 119,
+        "question": "Langkah yang harus dilakukan dalam melakukan perubahan adalah",
+        "options": [
+            "A. merencanakan kesiapan niat",
+            "B. memberikan informasi program & rencana perubahan",
+            "C. memberikan bonus sebelum dilakukan perubahan",
+            "D. tidak menginformasikan rencana strategi perusahaan"
+        ],
+        "correct": 1,
+        "explanation": "Mengomunikasikan transparansi program perubahan memastikan kesiapan seluruh elemen."
+    },
+    {
+        "id": 120,
+        "question": "Langkah yang harus dilakukan dalam melakukan adaptasi di dalam perubahan adalah...",
+        "options": [
+            "A. merencanakan riset lanjutan terhadap perubahan",
+            "B. memberikan pelatihan & rencana perubahan yang lebih matang",
+            "C. memberikan bonus sebelum dilakukan perubahan",
+            "D. tidak menginformasikan rencana strategi perusahaan"
+        ],
+        "correct": 1,
+        "explanation": "Pelatihan (training) dan pematangan rencana merupakan kunci keberhasilan adaptasi personel dalam perubahan."
+    }
+];
+
+        // ============================================================
+        //  2. KONFIGURASI & STATE
+        // ============================================================
+        const TOTAL = MASTER_QUESTIONS.length;
+        let currentQuestions = [];
+        let currentIndex = 0;
+        let answers = {};
+        let results = {};
+        let mode = 'all';
+        let selectedCount = 10;
+        let rangeStart = 1;
+        let rangeEnd = TOTAL;
+        let pickedSet = new Set();
+        let darkMode = localStorage.getItem('darkMode') === 'true';
+        let examMode = false;
+
+        // ============================================================
+        //  3. DOM REFS
+        // ============================================================
+        const $ = id => document.getElementById(id);
+        const setupPanel = $('setupPanel');
+        const questionPanel = $('questionPanel');
+        const resultPanel = $('resultPanel');
+        const reviewPanel = $('reviewPanel');
+        const totalSoalDisplay = $('totalSoalDisplay');
+        const progressText = $('progressText');
+        const correctCount = $('correctCount');
+        const wrongCount = $('wrongCount');
+        const scorePercent = $('scorePercent');
+        const progressFill = $('progressFill');
+        const qNumDisplay = $('qNumDisplay');
+        const qIndexDisplay = $('qIndexDisplay');
+        const questionText = $('questionText');
+        const optionsContainer = $('optionsContainer');
+        const feedback = $('feedback');
+        const feedbackAnswer = $('feedbackAnswer');
+        const feedbackExplanation = $('feedbackExplanation');
+        const nextQuestionBtn = $('nextQuestionBtn');
+        const prevBtn = $('prevBtn');
+        const nextBtn = $('nextBtn');
+        const questionNav = $('questionNav');
+        const startBtn = $('startBtn');
+        const resetBtn = $('resetBtn');
+        const themeToggle = $('themeToggle');
+        const modeOptions = $('modeOptions');
+        const reviewList = $('reviewList');
+        const closeReviewBtn = $('closeReviewBtn');
+        const reviewToggleBtn = $('reviewToggleBtn');
+        const finalScore = $('finalScore');
+        const finalCorrect = $('finalCorrect');
+        const finalWrong = $('finalWrong');
+        const retryWrongBtn = $('retryWrongBtn');
+        const resultResetBtn = $('resultResetBtn');
+        const resultReviewBtn = $('resultReviewBtn');
+        const restartFromQuestionBtn = $('restartFromQuestionBtn');
+
+        // ============================================================
+        //  4. UTILITY
+        // ============================================================
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function getLetter(i) { return String.fromCharCode(65 + i); }
+
+        // ============================================================
+        //  5. DARK MODE
+        // ============================================================
+        function applyTheme() {
+            document.documentElement.classList.toggle('dark', darkMode);
+            themeToggle.textContent = darkMode ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', darkMode);
+        }
+        themeToggle.addEventListener('click', () => { darkMode = !darkMode; applyTheme(); });
+        applyTheme();
+
+        // ============================================================
+        //  6. SETUP UI
+        // ============================================================
+        function renderSetupOptions() {
+            const html = [];
+            if (mode === 'all') {
+                html.push(`<p style="color:var(--text-secondary);">✅ Akan menampilkan seluruh <strong>${TOTAL}</strong> soal.</p>`);
+            }
+            if (mode === 'count') {
+                html.push(`
+                    <label>Jumlah soal:
+                        <select id="countSelect">
+                            ${[5,10,15,20,30,50,75,100,120].map(n => `<option value="${n}" ${n===selectedCount?'selected':''}>${n}</option>`).join('')}
+                        </select>
+                    </label>
+                `);
+            }
+            if (mode === 'range') {
+                html.push(`
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+                        <label>Dari:
+                            <input type="number" id="rangeStart" value="${rangeStart}" min="1" max="${TOTAL}" style="width:70px;">
+                        </label>
+                        <label>Sampai:
+                            <input type="number" id="rangeEnd" value="${rangeEnd}" min="1" max="${TOTAL}" style="width:70px;">
+                        </label>
+                        <span style="font-size:0.85rem;color:var(--text-secondary);">(1-${TOTAL})</span>
+                    </div>
+                `);
+            }
+            if (mode === 'pick') {
+                html.push(`
+                    <div style="display:flex;flex-wrap:wrap;gap:4px;max-height:200px;overflow-y:auto;padding:8px;border:1px solid var(--border);border-radius:8px;">
+                        ${Array.from({length:TOTAL}, (_,i) => {
+                            const num = i+1;
+                            const checked = pickedSet.has(num) ? 'checked' : '';
+                            return `<label style="display:flex;align-items:center;gap:4px;font-size:0.8rem;cursor:pointer;padding:2px 6px;border-radius:4px;background:var(--gray-light);">
+                                <input type="checkbox" value="${num}" ${checked} class="pick-checkbox">
+                                ${num}
+                            </label>`;
+                        }).join('')}
+                    </div>
+                    <div style="margin-top:6px;">
+                        <button class="btn btn-sm btn-outline" id="selectAllPick">Pilih Semua</button>
+                        <button class="btn btn-sm btn-outline" id="deselectAllPick">Hapus Semua</button>
+                    </div>
+                `);
+            }
+            if (mode === 'random') {
+                html.push(`
+                    <label>Jumlah soal acak:
+                        <input type="number" id="randomCount" value="${selectedCount}" min="1" max="${TOTAL}" style="width:80px;">
+                    </label>
+                    <span style="font-size:0.85rem;color:var(--text-secondary);">(maks ${TOTAL})</span>
+                `);
+            }
+            modeOptions.innerHTML = html.join('');
+
+            if (mode === 'count') {
+                const sel = document.getElementById('countSelect');
+                if (sel) sel.addEventListener('change', e => { selectedCount = parseInt(e.target.value) || 10; });
+            }
+            if (mode === 'range') {
+                const s = document.getElementById('rangeStart');
+                const e = document.getElementById('rangeEnd');
+                if (s) s.addEventListener('change', () => { rangeStart = Math.min(parseInt(s.value) || 1, TOTAL); });
+                if (e) e.addEventListener('change', () => { rangeEnd = Math.min(parseInt(e.value) || TOTAL, TOTAL); });
+            }
+            if (mode === 'pick') {
+                document.querySelectorAll('.pick-checkbox').forEach(cb => {
+                    cb.addEventListener('change', () => {
+                        const num = parseInt(cb.value);
+                        if (cb.checked) pickedSet.add(num);
+                        else pickedSet.delete(num);
+                    });
+                });
+                const selAll = document.getElementById('selectAllPick');
+                const deselAll = document.getElementById('deselectAllPick');
+                if (selAll) selAll.addEventListener('click', () => {
+                    document.querySelectorAll('.pick-checkbox').forEach(cb => { cb.checked = true; pickedSet.add(parseInt(cb.value)); });
+                });
+                if (deselAll) deselAll.addEventListener('click', () => {
+                    document.querySelectorAll('.pick-checkbox').forEach(cb => { cb.checked = false; pickedSet.delete(parseInt(cb.value)); });
+                });
+            }
+            if (mode === 'random') {
+                const rc = document.getElementById('randomCount');
+                if (rc) rc.addEventListener('change', () => { selectedCount = Math.min(parseInt(rc.value) || 5, TOTAL); });
+            }
+        }
+
+        document.querySelectorAll('#modeTabs .btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#modeTabs .btn').forEach(b => b.classList.remove('active-mode'));
+                btn.classList.add('active-mode');
+                mode = btn.dataset.mode;
+                if (mode !== 'pick') pickedSet.clear();
+                renderSetupOptions();
+            });
+        });
+
+        // ============================================================
+        //  7. BUILD SOAL (acak opsi + distribusi merata)
+        // ============================================================
+        function buildQuestions(source) {
+            const result = [];
+            const targetPositions = [];
+            for (let i = 0; i < source.length; i++) {
+                targetPositions.push(i % 4);
+            }
+            shuffle(targetPositions);
+
+            for (let i = 0; i < source.length; i++) {
+                const q = source[i];
+                const opts = q.options.slice();
+                const correctText = opts[q.correct];
+                const targetPos = targetPositions[i % targetPositions.length];
+                const wrongOpts = opts.filter(o => o !== correctText);
+                shuffle(wrongOpts);
+                const newOpts = [];
+                for (let p = 0; p < 4; p++) {
+                    if (p === targetPos) newOpts[p] = correctText;
+                    else newOpts[p] = wrongOpts.pop();
+                }
+                result.push({
+                    id: q.id,
+                    question: q.question,
+                    options: newOpts,
+                    correct: targetPos,
+                    explanation: q.explanation || 'Penjelasan tidak tersedia.'
+                });
+            }
+            return result;
+        }
+
+        // ============================================================
+        //  8. MULAI LATIHAN
+        // ============================================================
+        function startPractice() {
+            let pool = [];
+            if (mode === 'all') {
+                pool = MASTER_QUESTIONS.slice();
+            } else if (mode === 'count') {
+                const count = Math.min(selectedCount, TOTAL);
+                pool = shuffle(MASTER_QUESTIONS.slice()).slice(0, count);
+            } else if (mode === 'range') {
+                const start = Math.max(1, Math.min(rangeStart, TOTAL));
+                const end = Math.min(Math.max(rangeEnd, start), TOTAL);
+                pool = MASTER_QUESTIONS.slice(start - 1, end);
+            } else if (mode === 'pick') {
+                const ids = Array.from(pickedSet).filter(n => n >= 1 && n <= TOTAL);
+                if (ids.length === 0) { alert('Silakan pilih setidaknya 1 soal.'); return; }
+                pool = ids.map(id => MASTER_QUESTIONS[id - 1]).filter(Boolean);
+            } else if (mode === 'random') {
+                const count = Math.min(selectedCount, TOTAL);
+                pool = shuffle(MASTER_QUESTIONS.slice()).slice(0, count);
+            } else {
+                pool = MASTER_QUESTIONS.slice();
+            }
+            if (pool.length === 0) { alert('Tidak ada soal yang dipilih.'); return; }
+
+            currentQuestions = buildQuestions(pool);
+            shuffle(currentQuestions);
+            answers = {};
+            results = {};
+            currentIndex = 0;
+
+            setupPanel.classList.add('hidden');
+            questionPanel.classList.remove('hidden');
+            resultPanel.classList.add('hidden');
+            reviewPanel.classList.add('hidden');
+
+            renderQuestion();
+            renderNav();
+            updateStats();
+        }
+
+        // ============================================================
+        //  9. RENDER SOAL
+        // ============================================================
+        function renderQuestion() {
+            const q = currentQuestions[currentIndex];
+            if (!q) return;
+
+            qNumDisplay.textContent = `Soal ${currentIndex + 1}`;
+            qIndexDisplay.textContent = `${currentIndex + 1} / ${currentQuestions.length}`;
+            questionText.textContent = q.question;
+
+            optionsContainer.innerHTML = '';
+            const selected = answers[currentIndex];
+            const isAnswered = selected !== undefined;
+            const isCorrect = results[currentIndex];
+
+            q.options.forEach((opt, idx) => {
+                const div = document.createElement('div');
+                div.className = 'option';
+                if (isAnswered) div.classList.add('disabled');
+                if (isAnswered && idx === q.correct) div.classList.add('correct');
+                if (isAnswered && selected === idx && !isCorrect) div.classList.add('wrong');
+                if (isAnswered && selected === idx) div.classList.add('selected');
+
+                const letter = document.createElement('span');
+                letter.className = 'letter';
+                letter.textContent = getLetter(idx);
+
+                const text = document.createElement('span');
+                text.className = 'text';
+                text.textContent = opt;
+
+                div.appendChild(letter);
+                div.appendChild(text);
+
+                if (!isAnswered) {
+                    div.addEventListener('click', () => handleAnswer(idx));
+                }
+                optionsContainer.appendChild(div);
+            });
+
+            feedback.classList.remove('show', 'correct', 'wrong');
+            if (isAnswered) {
+                const isCorrectVal = results[currentIndex];
+                feedback.classList.add('show', isCorrectVal ? 'correct' : 'wrong');
+                const correctLetter = getLetter(q.correct);
+                const correctText = q.options[q.correct];
+                feedbackAnswer.textContent = isCorrectVal ?
+                    `✅ Benar! Jawaban: ${correctLetter}. ${correctText}` :
+                    `❌ Salah. Jawaban yang benar: ${correctLetter}. ${correctText}`;
+                feedbackExplanation.textContent = q.explanation || '';
+                nextQuestionBtn.disabled = false;
+            } else {
+                nextQuestionBtn.disabled = true;
+            }
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === currentQuestions.length - 1;
+
+            questionPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            renderNav();
+            updateStats();
+        }
+
+        // ============================================================
+        //  10. HANDLE ANSWER
+        // ============================================================
+        function handleAnswer(idx) {
+            if (answers[currentIndex] !== undefined) return;
+
+            const q = currentQuestions[currentIndex];
+            const isCorrect = idx === q.correct;
+            answers[currentIndex] = idx;
+            results[currentIndex] = isCorrect;
+
+            saveProgress();
+            renderQuestion();
+
+            const optDivs = optionsContainer.querySelectorAll('.option');
+            optDivs.forEach((div, i) => {
+                if (i === q.correct) div.classList.add('correct');
+                if (i === idx && !isCorrect) div.classList.add('wrong');
+                if (i === idx) div.classList.add('selected');
+            });
+
+            if (examMode) {
+                feedback.classList.remove('show');
+                const allAnswered = currentQuestions.every((_, i) => answers[i] !== undefined);
+                if (allAnswered) showResult();
+                renderNav();
+                updateStats();
+                nextQuestionBtn.disabled = false;
+            } else {
+                nextQuestionBtn.disabled = false;
+                updateStats();
+            }
+        }
+
+        // ============================================================
+        //  11. NAVIGASI
+        // ============================================================
+        function goToQuestion(index) {
+            if (index < 0 || index >= currentQuestions.length) return;
+            currentIndex = index;
+            renderQuestion();
+        }
+
+        prevBtn.addEventListener('click', () => goToQuestion(currentIndex - 1));
+        nextBtn.addEventListener('click', () => goToQuestion(currentIndex + 1));
+        nextQuestionBtn.addEventListener('click', () => {
+            if (currentIndex < currentQuestions.length - 1) {
+                goToQuestion(currentIndex + 1);
+            } else {
+                if (examMode) {
+                    showResult();
+                } else {
+                    const allAnswered = currentQuestions.every((_, i) => answers[i] !== undefined);
+                    if (allAnswered) showResult();
+                    else alert('Masih ada soal yang belum dijawab!');
+                }
+            }
+        });
+
+        // ============================================================
+        //  12. NAVIGASI GRID
+        // ============================================================
+        function renderNav() {
+            questionNav.innerHTML = '';
+            currentQuestions.forEach((q, i) => {
+                const span = document.createElement('span');
+                span.className = 'qn';
+                span.textContent = i + 1;
+                if (i === currentIndex) span.classList.add('current');
+                else if (answers[i] !== undefined) {
+                    span.classList.add(results[i] ? 'answered-correct' : 'answered-wrong');
+                }
+                span.addEventListener('click', () => goToQuestion(i));
+                questionNav.appendChild(span);
+            });
+        }
+
+        // ============================================================
+        //  13. STATS
+        // ============================================================
+        function updateStats() {
+            const total = currentQuestions.length;
+            const answered = Object.keys(answers).length;
+            const correct = Object.values(results).filter(v => v === true).length;
+            const wrong = Object.values(results).filter(v => v === false).length;
+            const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+            progressText.textContent = `${answered}/${total}`;
+            correctCount.textContent = correct;
+            wrongCount.textContent = wrong;
+            scorePercent.textContent = pct + '%';
+            progressFill.style.width = total > 0 ? `${(answered/total)*100}%` : '0%';
+        }
+
+        // ============================================================
+        //  14. HASIL
+        // ============================================================
+        function showResult() {
+            const total = currentQuestions.length;
+            const correct = Object.values(results).filter(v => v === true).length;
+            const wrong = total - correct;
+            const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+            finalScore.textContent = pct + '%';
+            finalCorrect.textContent = correct;
+            finalWrong.textContent = wrong;
+
+            questionPanel.classList.add('hidden');
+            resultPanel.classList.remove('hidden');
+            reviewPanel.classList.add('hidden');
+            saveProgress();
+        }
+
+        // ============================================================
+        //  15. REVIEW
+        // ============================================================
+        function renderReview(filter = 'all') {
+            reviewList.innerHTML = '';
+            let items = currentQuestions.map((q, i) => ({ q, i, answered: answers[i] !== undefined, correct: results[i] }));
+
+            if (filter === 'correct') items = items.filter(it => it.answered && it.correct);
+            else if (filter === 'wrong') items = items.filter(it => it.answered && !it.correct);
+            else if (filter === 'unanswered') items = items.filter(it => !it.answered);
+
+            if (items.length === 0) {
+                reviewList.innerHTML = '<p style="color:var(--text-secondary);padding:12px;">Tidak ada soal dalam kategori ini.</p>';
+                return;
+            }
+
+            items.forEach(({ q, i, answered, correct }) => {
+                const div = document.createElement('div');
+                div.className = 'review-item';
+                const num = document.createElement('span');
+                num.className = 'r-num';
+                num.textContent = i + 1;
+                const qText = document.createElement('span');
+                qText.className = 'r-q';
+                qText.textContent = q.question;
+                const ans = document.createElement('span');
+                ans.className = `r-answer ${answered ? (correct ? 'correct' : 'wrong') : ''}`;
+                if (answered) {
+                    const letter = getLetter(q.correct);
+                    ans.textContent = `✓ ${letter}. ${q.options[q.correct]}`;
+                } else {
+                    ans.textContent = '⏳ Belum dijawab';
+                }
+                div.appendChild(num);
+                div.appendChild(qText);
+                div.appendChild(ans);
+                reviewList.appendChild(div);
+            });
+        }
+
+        reviewToggleBtn.addEventListener('click', () => {
+            if (reviewPanel.classList.contains('hidden')) {
+                reviewPanel.classList.remove('hidden');
+                renderReview('all');
+            } else {
+                reviewPanel.classList.add('hidden');
+            }
+        });
+
+        closeReviewBtn.addEventListener('click', () => { reviewPanel.classList.add('hidden'); });
+
+        document.querySelectorAll('.review-filter .btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.review-filter .btn').forEach(b => b.classList.remove('active-review-filter'));
+                btn.classList.add('active-review-filter');
+                renderReview(btn.dataset.filter);
+            });
+        });
+
+        // ============================================================
+        //  16. RESET & RETRY
+        // ============================================================
+        function resetAll() {
+            answers = {};
+            results = {};
+            currentQuestions = [];
+            currentIndex = 0;
+            setupPanel.classList.remove('hidden');
+            questionPanel.classList.add('hidden');
+            resultPanel.classList.add('hidden');
+            reviewPanel.classList.add('hidden');
+            localStorage.removeItem('quizProgress');
+            updateStats();
+        }
+
+        resetBtn.addEventListener('click', resetAll);
+        resultResetBtn.addEventListener('click', resetAll);
+        restartFromQuestionBtn.addEventListener('click', () => {
+            if (confirm('Yakin ingin mengulang latihan dari awal? Progress akan direset.')) {
+                resetAll();
+            }
+        });
+
+        retryWrongBtn.addEventListener('click', () => {
+            const wrongIndices = Object.keys(results).filter(k => results[k] === false).map(Number);
+            if (wrongIndices.length === 0) { alert('Tidak ada soal yang salah! 🎉'); return; }
+            const wrongQuestions = wrongIndices.map(i => currentQuestions[i]);
+            currentQuestions = buildQuestions(wrongQuestions);
+            shuffle(currentQuestions);
+            answers = {};
+            results = {};
+            currentIndex = 0;
+            resultPanel.classList.add('hidden');
+            questionPanel.classList.remove('hidden');
+            renderQuestion();
+            renderNav();
+            updateStats();
+        });
+
+        resultReviewBtn.addEventListener('click', () => {
+            resultPanel.classList.add('hidden');
+            reviewPanel.classList.remove('hidden');
+            renderReview('all');
+        });
+
+        // ============================================================
+        //  17. LOCAL STORAGE
+        // ============================================================
+        function saveProgress() {
+            try {
+                const data = {
+                    questions: currentQuestions.map(q => q.id),
+                    answers: answers,
+                    results: results,
+                    index: currentIndex,
+                    mode: mode,
+                    timestamp: Date.now()
+                };
+                localStorage.setItem('quizProgress', JSON.stringify(data));
+            } catch (e) { /* ignore */ }
+        }
+
+        function loadProgress() {
+            try {
+                const raw = localStorage.getItem('quizProgress');
+                if (!raw) return false;
+                const data = JSON.parse(raw);
+                if (!data.questions || !data.answers) return false;
+                const ids = data.questions;
+                const valid = ids.every(id => MASTER_QUESTIONS.some(q => q.id === id));
+                if (!valid) return false;
+                const pool = ids.map(id => MASTER_QUESTIONS.find(q => q.id === id)).filter(Boolean);
+                if (pool.length === 0) return false;
+                currentQuestions = buildQuestions(pool);
+                const orderMap = {};
+                data.questions.forEach((id, idx) => { orderMap[id] = idx; });
+                currentQuestions.sort((a, b) => (orderMap[a.id] || 0) - (orderMap[b.id] || 0));
+                answers = data.answers || {};
+                results = data.results || {};
+                currentIndex = Math.min(data.index || 0, currentQuestions.length - 1);
+                Object.keys(answers).forEach(k => {
+                    const idx = parseInt(k);
+                    if (idx >= currentQuestions.length) delete answers[k];
+                });
+                Object.keys(results).forEach(k => {
+                    const idx = parseInt(k);
+                    if (idx >= currentQuestions.length) delete results[k];
+                });
+                return true;
+            } catch (e) { return false; }
+        }
+
+        // ============================================================
+        //  18. INIT
+        // ============================================================
+        function init() {
+            totalSoalDisplay.textContent = TOTAL;
+            renderSetupOptions();
+
+            document.getElementById('examModeCheck').addEventListener('change', function() {
+                examMode = this.checked;
+            });
+
+            const hasProgress = loadProgress();
+            if (hasProgress && currentQuestions.length > 0) {
+                setupPanel.classList.add('hidden');
+                questionPanel.classList.remove('hidden');
+                renderQuestion();
+                renderNav();
+                updateStats();
+                const allAnswered = currentQuestions.every((_, i) => answers[i] !== undefined);
+                if (allAnswered && Object.keys(answers).length > 0) {
+                    showResult();
+                }
+            } else {
+                resetAll();
+            }
+
+            startBtn.addEventListener('click', () => {
+                if (Object.keys(answers).length > 0) {
+                    if (!confirm('Latihan sedang berjalan. Mulai ulang?')) return;
+                }
+                startPractice();
+            });
+
+            document.querySelector('#modeTabs .btn[data-mode="all"]')?.click();
+        }
+
+        init();
+        console.log(`✅ ${TOTAL} soal Manajemen Perubahan berhasil dimuat.`);
+    </script>
+</body>
+</html>
